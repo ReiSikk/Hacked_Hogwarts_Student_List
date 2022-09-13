@@ -7,6 +7,39 @@
     <link rel="stylesheet" href="hackedhogwarts.css" />
     <title>Hacked Hogwarts Student List</title>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <h1>Hacked Hogwarts Student List</h1>
+    </header>
+    <main>
+      <div class="search_bar">
+        <input type="text" placeholder="Search student" id="search" />
+        <select name="sort" id="sort" data-direction="asc">
+          <option value selected>Sort by:</option>
+          <option value="firstName" data-action="sort">First Name A-Z</option>
+          <option value="lastName" data-action="sort">Last Name A-Z</option>
+          <option value="house" data-action="sort">House A-Z</option>
+          <option value="studentID" data-action="sort">Student ID A-Z</option>
+          <option value="firstName" data-action="sort">First Name Z-A</option>
+          <option value="lastName" data-action="sort">Last Name Z-A</option>
+          <option value="house" data-action="sort">House Z-A</option>
+          <option value="studentID" data-action="sort">Student ID Z-A</option>
+        </select>
+      </div>
+      <aside class="side_bar">
+        <div>
+          <div class="filter_house">
+            <h3>Filter by house</h3>
+            <div class="button_container">
+              <button data-action="filter" data-filter="slytherin" data-filter-type="house">Slytherin</button>
+              <button data-action="filter" data-filter="hufflepuff" data-filter-type="house">Hufflepuff</button>
+              <button data-action="filter" data-filter="ravenclaw" data-filter-type="house">Ravenclaw</button>
+              <button data-action="filter" data-filter="gryffindor" data-filter-type="house">Gryffindor</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </body>
   <script src="hacked.js"></script>
 </html>
