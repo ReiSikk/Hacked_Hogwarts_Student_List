@@ -1,0 +1,93 @@
+/* ********** Entry styles ******** */
+
+:root {
+  /* typography */
+  --font-xsmall: 0.8em;
+  --font-small: 1em;
+  --font-medium: 1.25em;
+  --font-large: 1.563em;
+  --font-xlarge: 1.953em;
+  --font-xxlarge: 2.441em;
+  --font-xxxlarge: 3.052em;
+  --font-largest: 6em;
+  /* spacings */
+  --spacing-xsmall: 0.618rem;
+  --spacing-small: 1rem;
+  --spacing-medium: 1.618rem;
+  --spacing-large: 2.618rem;
+  --spacing-xlarge: 4.236rem;
+  --spacing-xxlarge: 6.854rem;
+  --spacing-xxxlarge: 11.089rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@media only screen and (min-width: 800px) {
+  :root {
+    /* Typography */
+    --font-xsmall: 0.75em;
+    --font-small: 1em;
+    --font-medium: 1.333em;
+    --font-large: 1.777em;
+    --font-xlarge: 2.369em;
+    --font-xxlarge: 3.157em;
+    --font-xxxlarge: 4.209em;
+    --font-largest: 6em;
+  }
+  body {
+    font-size: 1.1rem;
+  }
+}
+body {
+  font-size: 0.9rem;
+  background-color: #f9f8f7;
+  font-family: var(--font-family_primary);
+}
+img {
+  max-width: 100%;
+}
+ul {
+  list-style: none;
+}
+p {
+  max-width: 62ch;
+}
+
+/* *****Typography****** */
+/* fs stands for font-size */
+.fs_xsmall {
+  font-size: var(--font-xsmall);
+  line-height: 1.4;
+}
+.fs_small {
+  font-size: var(--font-small);
+  line-height: 1.4;
+}
+.fs_medium {
+  font-size: var(--font-medium);
+  line-height: 1.3;
+}
+.fs_large {
+  font-size: var(--font-large);
+  line-height: 1.1;
+}
+.fs_xlarge {
+  font-size: var(--font-xlarge);
+  line-height: 1.1;
+}
+.fs_xxlarge {
+  font-size: var(--font-xxlarge);
+  line-height: 1;
+}
+.fs_3xlarge {
+  font-size: var(--font-xxxlarge);
+  line-height: 1;
+}
+.fs_largest {
+  font-size: var(--font-largest);
+  line-height: 1;
+}
