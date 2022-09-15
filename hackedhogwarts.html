@@ -5,16 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="hackedhogwarts.css" />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=boska@500,700,501&f[]=general-sans@500,400&display=swap"
+      rel="stylesheet"
+    />
     <title>Hacked Hogwarts Student List</title>
   </head>
   <body>
     <header>
-      <h1>Hacked Hogwarts Student List</h1>
+      <h1 class="fs_xxlarge">Hacked Hogwarts Student List</h1>
     </header>
     <main>
-      <div class="search_bar">
-        <input type="text" placeholder="Search student" id="search" />
-        <select name="sort" id="sort" data-direction="asc">
+      <div class="searchsort_container">
+        <input class="search_bar" type="text" placeholder="Search student" id="search" />
+        <select class="sort_bar" name="sort" id="sort" data-direction="asc">
           <option value selected>Sort by:</option>
           <option value="firstName" data-action="sort">First Name A-Z</option>
           <option value="lastName" data-action="sort">Last Name A-Z</option>
@@ -31,11 +35,76 @@
           <div class="filter_house">
             <h3>Filter by house</h3>
             <div class="button_container">
-              <button data-action="filter" data-filter="slytherin" data-filter-type="house">Slytherin</button>
-              <button data-action="filter" data-filter="hufflepuff" data-filter-type="house">Hufflepuff</button>
-              <button data-action="filter" data-filter="ravenclaw" data-filter-type="house">Ravenclaw</button>
-              <button data-action="filter" data-filter="gryffindor" data-filter-type="house">Gryffindor</button>
+              <button class="fs_small" data-action="filter" data-filter="slytherin" data-filter-type="house">
+                Slytherin
+              </button>
+              <button class="fs_small" data-action="filter" data-filter="hufflepuff" data-filter-type="house">
+                Hufflepuff
+              </button>
+              <button class="fs_small" data-action="filter" data-filter="ravenclaw" data-filter-type="house">
+                Ravenclaw
+              </button>
+              <button class="fs_small" data-action="filter" data-filter="gryffindor" data-filter-type="house">
+                Gryffindor
+              </button>
             </div>
+          </div>
+          <div class="filter_blood">
+            <h3>Filter by blood</h3>
+            <div class="button_container">
+              <button class="fs_small" data-action="filter" data-filter="pureblood" data-filter-type="blood">
+                Pure Blood
+              </button>
+              <button class="fs_small" data-action="filter" data-filter="halfblood" data-filter-type="blood">
+                Half Blood
+              </button>
+              <button class="fs_small" data-action="filter" data-filter="allblood" data-filter-type="blood">All</button>
+            </div>
+          </div>
+          <div class="filter_gender">
+            <h3>Filter by gender</h3>
+            <div class="button_container">
+              <button class="fs_small" data-action="filter" data-filter="boys" data-filter-type="gender">Boys</button>
+              <button class="fs_small" data-action="filter" data-filter="girls" data-filter-type="gender">Girls</button>
+            </div>
+          </div>
+          <div class="filter_status">
+            <h3>Filter by status</h3>
+            <div class="button_container">
+              <button class="fs_small" data-action="filter" data-filter="expelled" data-filter-type="status">
+                Expelled
+              </button>
+              <button class="fs_small" data-action="filter" data-filter="notexpelled" data-filter-type="status">
+                Non expelled
+              </button>
+              <button class="fs_small" data-action="filter" data-filter="prefects" data-filter-type="status">
+                Prefects
+              </button>
+              <button class="fs_small" data-action="filter" data-filter="inqsquad" data-filter-type="status">
+                Inquisitorial Squad
+              </button>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <aside class="stats_bar">
+        <div>
+          <h2>About Hogwarts</h2>
+          <div class="house_stats">
+            <h3>House:</h3>
+            <ul>
+              <li data-filter-type="housestats" data-filter="slytherinstats">Slytherin</li>
+              <li data-filter-type="housestats" data-filter="hufflepuffstats">Hufflepuff</li>
+              <li data-filter-type="housestats" data-filter="ravenclawstats">Ravenclaw</li>
+              <li data-filter-type="housestats" data-filter="gryffindorstats">Gryffindor</li>
+            </ul>
+          </div>
+          <div class="students_stats">
+            <h3>Students:</h3>
+            <ul>
+              <li data-filter-type="students_stats" data-filter="notexpelled-stats">Not expelled:</li>
+              <li data-filter-type="students_stats" data-filter="expelled-stats">Expelled:</li>
+            </ul>
           </div>
         </div>
       </aside>

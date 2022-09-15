@@ -18,6 +18,9 @@
   --spacing-xlarge: 4.236rem;
   --spacing-xxlarge: 6.854rem;
   --spacing-xxxlarge: 11.089rem;
+  /* font fam */
+  --font-family-primary: "Boska", serif;
+  --font-family-secondary: "General Sans", sans-serif;
 }
 
 * {
@@ -44,8 +47,14 @@
 }
 body {
   font-size: 0.9rem;
-  background-color: #f9f8f7;
+  background-color: #fbecc4;
   font-family: var(--font-family_primary);
+}
+h3 {
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-small);
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
 }
 img {
   max-width: 100%;
@@ -55,6 +64,11 @@ ul {
 }
 p {
   max-width: 62ch;
+}
+header {
+  display: flex;
+  justify-content: center;
+  font-family: var(--font-family-primary);
 }
 
 /* *****Typography****** */
@@ -91,3 +105,63 @@ p {
   font-size: var(--font-largest);
   line-height: 1;
 }
+
+/* *********Left ASIDE Starts******** */
+
+.side_bar {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-small);
+  background-color: #d9d9d9;
+  width: fit-content;
+  margin-left: var(--spacing-small);
+}
+.side_bar div:first-of-type {
+  width: fit-content;
+}
+.filter_house {
+  padding-top: var(--spacing-xsmall);
+}
+.button_container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: var(--spacing-xsmall);
+  padding-bottom: var(--spacing-xsmall);
+}
+.button_container > * {
+  font-family: var(--font-family-primary);
+  font-weight: 600;
+  padding: 0.2rem;
+  margin: 0.25em;
+}
+/* ********* Left ASIDE ends******** */
+
+/* ***Right ASIDE starts */
+.stats_bar {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-small);
+  background-color: #d9d9d9;
+  width: fit-content;
+  margin-left: var(--spacing-small);
+}
+.stats_bar div:first-of-type {
+  width: fit-content;
+}
+/* ***Right ASIDE ends */
+
+/* ****SEARCH AND SORT STARTS */
+.searchsort_container {
+  display: flex;
+  gap: var(--spacing-large);
+  padding: var(--spacing-small);
+}
+.search_bar {
+  padding: var(--spacing-xsmall);
+  text-align: center;
+}
+
+/* ****SEARCH AND SORT ENDS */
