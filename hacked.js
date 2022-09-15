@@ -134,6 +134,7 @@ function displayStudentList() {
   /*  console.log("Display students list called"); */
   filteredStudents.forEach(displayStudent);
 }
+
 function displayStudent(singleStudent) {
   const template = document.querySelector("#template").content;
   // create clone
@@ -150,7 +151,7 @@ function displayStudent(singleStudent) {
   clone.querySelector("#image").alt;
 
   //grab the parent
-  const parent = document.querySelector("main");
+  const parent = document.querySelector(".student_grid");
   // append clone to list
   parent.appendChild(clone);
 }

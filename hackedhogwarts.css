@@ -59,9 +59,11 @@ h3 {
 img {
   max-width: 100%;
 }
-ul {
+ul,
+li {
   list-style: none;
 }
+
 p {
   max-width: 62ch;
 }
@@ -69,6 +71,14 @@ header {
   display: flex;
   justify-content: center;
   font-family: var(--font-family-primary);
+  padding-bottom: var(--spacing-medium);
+}
+button:hover {
+  /* animation-name: hover;
+  animation-duration: 0.2s; */
+  scale: 1.05;
+  transition: 0.25s all;
+  box-shadow: 1px 2px 6px black;
 }
 
 /* *****Typography****** */
@@ -114,7 +124,8 @@ header {
   padding: var(--spacing-small);
   background-color: #d9d9d9;
   width: fit-content;
-  margin-left: var(--spacing-small);
+  height: fit-content;
+  /* position: fixed; */
 }
 .side_bar div:first-of-type {
   width: fit-content;
@@ -137,6 +148,7 @@ header {
   padding: 0.2rem;
   margin: 0.25em;
 }
+
 /* ********* Left ASIDE ends******** */
 
 /* ***Right ASIDE starts */
@@ -146,22 +158,73 @@ header {
   padding: var(--spacing-small);
   background-color: #d9d9d9;
   width: fit-content;
-  margin-left: var(--spacing-small);
+  justify-self: right;
+  height: fit-content;
+  position: fixed;
 }
 .stats_bar div:first-of-type {
   width: fit-content;
 }
-/* ***Right ASIDE ends */
-
-/* ****SEARCH AND SORT STARTS */
+.stats_bar h2 {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-large);
+}
+.stats_bar li {
+  font-family: var(--font-family-primary);
+  font-weight: 600;
+  padding-top: var(--spacing-xsmall);
+  opacity: 0.8;
+}
+.students_stats,
+.house_stats h3 {
+  padding-top: var(--spacing-small);
+}
 .searchsort_container {
   display: flex;
-  gap: var(--spacing-large);
-  padding: var(--spacing-small);
+  flex-direction: column;
+  gap: var(--spacing-small);
 }
 .search_bar {
-  padding: var(--spacing-xsmall);
+  padding: 0.25em;
   text-align: center;
 }
+.sort_bar {
+  text-align: center;
+  padding: 0.25em;
+}
+/* ***Right ASIDE ends */
 
-/* ****SEARCH AND SORT ENDS */
+/* *** MAIN GRID STARTS */
+.student_grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+main {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  padding-left: var(--spacing-small);
+  padding-right: var(--spacing-small);
+}
+section {
+  width: 100%;
+  margin: auto;
+}
+/* **MAIN GRID ENDS */
+
+/* *** STUDENT CARD STARTS ***** */
+/* #single_student {
+  border: solid 4px hotpink;
+} */
+/* ***STUDENT CARD ENDS */
+
+@keyframes hover {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}
