@@ -88,26 +88,33 @@
         </div>
       </aside>
       <section>
-        <div class="student_grid">
-
-        </div>
+        <div class="student_grid"></div>
       </section>
       <template id="template">
         <article id="#single_student">
-        <h1 class="name">
-          <img src="" alt="" id="image">
-          <div class="student_details">
-        <li id="first_name"><span>First Name: </span></li>
-        <li id="middle_name"><span>Middle name: </span></li>
-        <li id="nick_name"><span>Nick name: </span></li>
-        <li id="last_name"><span>Last name: </span></li>
-        <li id="gender"><span>Gender: </span></li></h1>
-        <li id="house"><span>House: </span></li></h1>
+          <div class="card_wrapper">
+            <h1 class="fs_medium" id="full_name"></h1>
+            <img src="" alt="" id="image" />
+            <div class="student_details">
+              <ul>
+                <li id="first_name"><span>First Name: </span></li>
+                <li id="middle_name"><span>Middle name: </span></li>
+                <li id="nick_name"><span>Nick name: </span></li>
+                <li id="last_name"><span>Last name: </span></li>
+                <li id="gender"><span>Gender: </span></li>
+                <li id="house"><span>House: </span></li>
+              </ul>
+            </div>
+          </div>
         </article>
       </template>
       <aside class="stats_bar">
         <div>
           <h2>About Hogwarts</h2>
+          <div class="displayed_now">
+            <h3>Displaying:</h3>
+            <div data-filter-type="displayednow"></div>
+          </div>
           <div class="house_stats">
             <h3>House:</h3>
             <ul>

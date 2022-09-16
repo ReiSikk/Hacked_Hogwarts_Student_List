@@ -9,6 +9,7 @@ let firstname, middlename, lastname, nickname, gender, house, image;
 const filteredStudents = [];
 
 const Student = {
+  fullname: "",
   firstname: "",
   middlename: "",
   lastname: "",
@@ -119,6 +120,11 @@ function prepareData(jsonData) {
         .toLowerCase()}_${singleStudent.firstname[0].toLowerCase()}.png`;
     }
     singleStudent.image = image;
+
+    //fullname
+    singleStudent.fullname =
+      `${singleStudent.firstname} ` + `${singleStudent.middlename} ` + `${singleStudent.lastname}`;
+
     //push each singleStudent to filteredStudents array.
     filteredStudents.push(singleStudent);
   });
@@ -135,6 +141,7 @@ function displayStudent(singleStudent) {
   const clone = template.cloneNode(true);
 
   // set clone data
+  clone.querySelector("#full_name").textContent = `${singleStudent.fullname}`;
   clone.querySelector("#first_name").textContent = `First name: ${singleStudent.firstname}`;
   clone.querySelector("#middle_name").textContent = ` Middle name: ${singleStudent.middlename}`;
   clone.querySelector("#nick_name").textContent = `Nick name: ${singleStudent.nickname}`;

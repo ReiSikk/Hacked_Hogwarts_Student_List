@@ -125,7 +125,9 @@ button:hover {
   background-color: #d9d9d9;
   width: fit-content;
   height: fit-content;
-  /* position: fixed; */
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
 }
 .side_bar div:first-of-type {
   width: fit-content;
@@ -160,7 +162,9 @@ button:hover {
   width: fit-content;
   justify-self: right;
   height: fit-content;
-  position: fixed;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
 }
 .stats_bar div:first-of-type {
   width: fit-content;
@@ -174,6 +178,10 @@ button:hover {
   font-weight: 600;
   padding-top: var(--spacing-xsmall);
   opacity: 0.8;
+}
+.displayed_now h3 {
+  padding-top: var(--spacing-xsmall);
+  padding-bottom: var(--spacing-xsmall);
 }
 .students_stats,
 .house_stats h3 {
@@ -212,12 +220,40 @@ section {
   width: 100%;
   margin: auto;
 }
+@media only screen and (max-width: 899px) {
+  .student_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
 /* **MAIN GRID ENDS */
 
 /* *** STUDENT CARD STARTS ***** */
-/* #single_student {
-  border: solid 4px hotpink;
-} */
+.card_wrapper {
+  padding-left: var(--spacing-xsmall);
+  padding-right: var(--spacing-xsmall);
+  padding-top: var(--spacing-xsmall);
+  padding-bottom: var(--spacing-medium);
+  border: solid 2px black;
+  border-radius: 8%;
+}
+.card_wrapper:hover {
+  scale: 1.025;
+  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  box-shadow: 3px 6px 12px black;
+  rotate: 1deg;
+  transform: translate3d(-0.05rem, -0.1rem, 0.1rem);
+}
+.student_details {
+  font-family: var(--font-family-secondary);
+}
+#full_name {
+  padding-bottom: var(--spacing-xsmall);
+  text-align: center;
+  font-family: var(--font-family-primary);
+  font-weight: 600;
+}
+
 /* ***STUDENT CARD ENDS */
 
 @keyframes hover {
