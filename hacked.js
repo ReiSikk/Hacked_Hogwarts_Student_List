@@ -4,9 +4,13 @@ const url = "https://petlatkea.dk/2021/hogwarts/students.json";
 
 window.addEventListener("DOMContentLoaded", start);
 
+//everything global
 let firstname, middlename, lastname, nickname, gender, house, image;
+const allStudents = [];
 
-const filteredStudents = [];
+const settings = {
+  filterBy: "all",
+};
 
 const Student = {
   fullname: "",
@@ -23,6 +27,14 @@ const Student = {
 function start() {
   console.log("start");
   loadJSON();
+  registerButtons();
+  buildList();
+}
+
+function registerButtons() {
+  document
+    .querySelectorAll("[data-action='filter']")
+    .forEach((button) => button.addEventListener("click", selectFilter));
 }
 
 //fetch the data and pass data to prepareData function
@@ -69,7 +81,7 @@ function prepareData(jsonData) {
       singleStudent.nickname =
         fullname.substring(fullname.indexOf(`"`) + 1, fullname.indexOf(`"`) + 2).toUpperCase() +
         fullname.substring(fullname.indexOf(`"`) + 2, fullname.lastIndexOf(`"`)).toLowerCase();
-      console.log(singleStudent.nickname);
+
       // removing the name from the middlename because its a nickname
       singleStudent.middlename = "";
     } else if (singleStudent.nickname === "") {
@@ -97,9 +109,8 @@ function prepareData(jsonData) {
     singleStudent.gender = gender;
 
     //Single Student image
-    ///NOTES: **2 students with the same lastname : Padma Patil and Parvati Patil
     //** all src images have last name written + _ followed by first letter of firstname*/
-    //Leanne has no lastname nor image
+
     if (!fullname.includes(" ")) {
       image = `no image`;
 
@@ -125,14 +136,50 @@ function prepareData(jsonData) {
     singleStudent.fullname =
       `${singleStudent.firstname} ` + `${singleStudent.middlename} ` + `${singleStudent.lastname}`;
 
-    //push each singleStudent to filteredStudents array.
-    filteredStudents.push(singleStudent);
+    //push each singleStudent to allStudents array.
+    allStudents.push(singleStudent);
   });
-  displayStudentList();
+  //displayStudentList();
+  buildList();
+}
+/* ********************************************************************************* FILTERING FUNCTIONS****************************************** */
+function selectFilter(event) {
+  const filter = event.target.dataset.filter;
+  //console.log(`User selected: ${filter}`);
+  setFilter(filter);
+}
+
+function setFilter(filter) {
+  settings.filterBy = filter;
+  console.log(`Filter by: ${settings.filterBy}`);
+  buildList();
+}
+function filterList(filteredList) {
+  if (settings.filterBy === "slytherin") {
+    filteredList = allStudents.filter(isSlytherin);
+  } else if (settings.filterBy === "hufflepuff") {
+    console.log("hufflepuff filter");
+  } else if (settings.filterBy === "ravenclaw") {
+    console.log("ravenclaw filter");
+  } else if (settings.filterBy === "gryffindor") {
+    console.log("griffindor filter");
+  }
+  return filteredList;
+}
+function isSlytherin(singleStudent) {
+  console.log("isSlytherin called");
+  if (singleStudent.house === "slytherin") {
+  }
+}
+
+function buildList() {
+  const currentList = filterList(allStudents);
+  /* const sortedList = sortList(currentList); */
+  displayStudentList(currentList);
 }
 
 function displayStudentList() {
-  filteredStudents.forEach(displayStudent);
+  allStudents.forEach(displayStudent);
 }
 
 function displayStudent(singleStudent) {
