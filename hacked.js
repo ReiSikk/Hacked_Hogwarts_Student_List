@@ -51,16 +51,6 @@ async function loadJSON() {
   prepareStudentsData(jsonData);
   //TODO: fetch blood status JSON
 }
-/* function loadJSON() {
-  fetch(url)
-    .then((response) => response.json())
-    .then((jsonData) => {
-      //when loaded, prepare objects
-      prepareStudentsData(jsonData);
-    });
-
-  //TODO: fetch blood status json
-} */
 
 function prepareStudentsData(jsonData) {
   allStudents = jsonData.map(prepareStudentData);
@@ -130,7 +120,7 @@ function prepareStudentData(jsonObject) {
 
   //gender variable
   gender = gender[0].toUpperCase() + gender.substring(1);
-  gender = singleStudent.gender;
+  singleStudent.gender = gender;
 
   //Single Student image
   if (!fullname.includes(" ")) {
@@ -215,16 +205,29 @@ function filterList(filteredList) {
   }
   if (settings.filterBy === "hufflepuff") {
     filteredList = allStudents.filter(isHufflepuff);
-    console.log("hufflepuff filter");
   }
   if (settings.filterBy === "ravenclaw") {
     filteredList = allStudents.filter(isRavenclaw);
-    console.log("ravenclaw filter");
   }
   if (settings.filterBy === "gryffindor") {
     filteredList = allStudents.filter(isGryffindor);
-    console.log("griffindor filter");
   }
+  if (settings.filterBy === "pureblood") {
+    filteredList = allStudents.filter(isPureBlood);
+  }
+  if (settings.filterBy === "halfblood") {
+    filteredList = allStudents.filter(isHalfBlood);
+  }
+  if (settings.filterBy === "allblood") {
+    filteredList = allStudents.filter(allBloodTypes);
+  }
+  if (settings.filterBy === "boys") {
+    filteredList = allStudents.filter(filterByBoys);
+  }
+  if (settings.filterBy === "girls") {
+    filteredList = allStudents.filter(filterByGirls);
+  }
+
   return filteredList;
 }
 function isSlytherin(singleStudent) {
@@ -238,6 +241,21 @@ function isHufflepuff(singleStudent) {
 }
 function isRavenclaw(singleStudent) {
   return singleStudent.house === "Ravenclaw";
+}
+function isPureBlood(singleStudent) {
+  return singleStudent.bloodStatus === "Pureblood";
+}
+function isHalfBlood(singleStudent) {
+  return singleStudent.bloodStatus === "Halfblood";
+}
+function allBloodTypes(singleStudent) {
+  return singleStudent.bloodStatus === "";
+}
+function filterByGirls(singleStudent) {
+  return singleStudent.gender === "Girl";
+}
+function filterByBoys(singleStudent) {
+  return singleStudent.gender === "Boy";
 }
 
 // Sorting function
@@ -264,17 +282,15 @@ function sortList(sortedList) {
 
 function displayStudentList(students) {
   document.querySelector(".student_grid").innerHTML = "";
-  console.log("Array students passed to displayStudentList func:", students);
 
   //TODO: display current students nr: QS.textcontent = students.length
+  //number of students currently displayed
+  document.querySelector("[data-filter-type='displayednow']").textContent = `${students.length} Students`;
   //build a new list
   students.forEach(displayStudent);
-  console.log("Students: ", students);
 }
 
 function displayStudent(singleStudent) {
-  console.log("displayStudent called");
-  console.log(singleStudent);
   const template = document.querySelector("#template").content;
   // create clone
   const clone = template.cloneNode(true);
