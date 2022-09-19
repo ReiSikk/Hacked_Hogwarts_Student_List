@@ -1,17 +1,19 @@
 "use strict";
 
+//everything global
 const url = "https://petlatkea.dk/2021/hogwarts/students.json";
+const bloodUrl = "https://petlatkea.dk/2021/hogwarts/families.json";
 
 window.addEventListener("DOMContentLoaded", start);
 
-//everything global
-
 let allStudents = [];
+let studentBloodStatus = {};
 
 const settings = {
   filterBy: "all",
   sortBy: "firstname",
   sortDir: "asc",
+  blood: undefined,
 };
 
 const Student = {
@@ -24,16 +26,17 @@ const Student = {
   house: "",
   image: "",
   expelled: false,
-  bloodStatus: "",
+  bloodLine: "",
   inqSquad: false,
   prefect: false,
 };
 
 //* INITIALIZE
-function start() {
+async function start() {
   console.log("start");
-  loadJSON();
+  await loadJSON();
   registerButtons();
+  buildList();
 }
 
 function registerButtons() {
@@ -46,16 +49,17 @@ function registerButtons() {
 async function loadJSON() {
   const response = await fetch(url);
   const jsonData = await response.json();
+  const response2 = await fetch(bloodUrl);
+  const bloodData = await response2.json();
 
+  settings.blood = bloodData;
   // when loaded, prepare data objects
   prepareStudentsData(jsonData);
-  //TODO: fetch blood status JSON
 }
 
 function prepareStudentsData(jsonData) {
   allStudents = jsonData.map(prepareStudentData);
   //* The map() method creates a new array populated with the results of calling a provided function on every element in the calling array.
-  console.log(`All students array: `, allStudents);
   //filter and sort on the first load
   buildList();
 }
@@ -145,10 +149,24 @@ function prepareStudentData(jsonObject) {
   //fullname
   singleStudent.fullname = `${singleStudent.firstname} ` + `${singleStudent.middlename} ` + `${singleStudent.lastname}`;
 
+  //blood
+  singleStudent.bloodLine = findBloodType(singleStudent.lastname);
   return singleStudent;
 }
 
 //* ********************************************************************************* Set sort and set filter functions ****************************************** */
+function findBloodType(lastname) {
+  let pureblood = settings.blood.pure;
+  let halfblood = settings.blood.half;
+  if (pureblood.includes(lastname) && halfblood.includes(lastname)) {
+    return "Halfblood";
+  } else if (pureblood.includes(lastname) && !halfblood.includes(lastname)) {
+    return "Pureblood";
+  } else {
+    return "Muggle";
+  }
+}
+
 function selectFilter(event) {
   const filter = event.target.dataset.filter;
   //console.log(`User selected: ${filter}`);
@@ -158,6 +176,7 @@ function selectFilter(event) {
 function selectSort(event) {
   const sortBy = event.target.dataset.sort;
   const sortDir = event.target.dataset.sortDirection;
+  console.log(sortBy);
 
   //find "old" sortBy element and remove "sortBy"
   const oldElement = document.querySelector(`[data-sort="${settings.sortBy}"]`);
@@ -194,7 +213,7 @@ function buildList() {
   const currentList = filterList(allStudents);
   /* console.log(currentList); */
   const sortedList = sortList(currentList);
-  console.log(sortedList);
+  //console.log(sortedList);
   displayStudentList(sortedList);
 }
 
@@ -219,7 +238,7 @@ function filterList(filteredList) {
     filteredList = allStudents.filter(isHalfBlood);
   }
   if (settings.filterBy === "allblood") {
-    filteredList = allStudents.filter(allBloodTypes);
+    filteredList = allStudents.filter(isMuggle);
   }
   if (settings.filterBy === "boys") {
     filteredList = allStudents.filter(filterByBoys);
@@ -242,20 +261,20 @@ function isHufflepuff(singleStudent) {
 function isRavenclaw(singleStudent) {
   return singleStudent.house === "Ravenclaw";
 }
-function isPureBlood(singleStudent) {
-  return singleStudent.bloodStatus === "Pureblood";
-}
-function isHalfBlood(singleStudent) {
-  return singleStudent.bloodStatus === "Halfblood";
-}
-function allBloodTypes(singleStudent) {
-  return singleStudent.bloodStatus === "";
-}
 function filterByGirls(singleStudent) {
   return singleStudent.gender === "Girl";
 }
 function filterByBoys(singleStudent) {
   return singleStudent.gender === "Boy";
+}
+function isPureBlood(singleStudent) {
+  return singleStudent.bloodLine === "Pureblood";
+}
+function isHalfBlood(singleStudent) {
+  return singleStudent.bloodLine === "Halfblood";
+}
+function isMuggle(singleStudent) {
+  return singleStudent.bloodLine === "Muggle";
 }
 
 // Sorting function
@@ -282,8 +301,6 @@ function sortList(sortedList) {
 
 function displayStudentList(students) {
   document.querySelector(".student_grid").innerHTML = "";
-
-  //TODO: display current students nr: QS.textcontent = students.length
   //number of students currently displayed
   document.querySelector("[data-filter-type='displayednow']").textContent = `${students.length} Students`;
   //build a new list
@@ -303,6 +320,7 @@ function displayStudent(singleStudent) {
   clone.querySelector("#last_name").textContent = `Last name: ${singleStudent.lastname}`;
   clone.querySelector("#gender").textContent = `Gender: ${singleStudent.gender}`;
   clone.querySelector("#house").textContent = `House: ${singleStudent.house}`;
+  clone.querySelector("#blood_type span").textContent = `${singleStudent.bloodLine}`;
   clone.querySelector("#image").src = singleStudent.image;
   clone.querySelector("#image").alt;
 
