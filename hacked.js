@@ -323,9 +323,23 @@ function displayStudent(singleStudent) {
   clone.querySelector("#blood_type span").textContent = `${singleStudent.bloodLine}`;
   clone.querySelector("#image").src = singleStudent.image;
   clone.querySelector("#image").alt;
+  clone.querySelector("#open_popup").addEventListener("click", openModal);
 
   //grab the parent
   const parent = document.querySelector(".student_grid");
   // append clone to list
   parent.appendChild(clone);
+}
+
+//*POP UP MODAL STUFF HERE FOR THE MOMENT A LEAST
+function openModal(singleStudent) {
+  console.log("openModal");
+  document.querySelector(".closebutton").addEventListener("click", closeModal);
+  document.querySelector("#student_info").classList.remove("hide");
+}
+
+function closeModal() {
+  console.log("closemodal called");
+  document.querySelector("#student_info").classList.add("hide");
+  document.querySelector(".student_modal .closebutton").removeEventListener("click", closeModal);
 }

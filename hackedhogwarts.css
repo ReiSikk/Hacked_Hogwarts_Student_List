@@ -28,6 +28,9 @@
   margin: 0;
   padding: 0;
 }
+.main_wrapper {
+  max-width: 1440px;
+}
 
 @media only screen and (min-width: 800px) {
   :root {
@@ -49,6 +52,7 @@ body {
   font-size: 0.9rem;
   background-color: #fbecc4;
   font-family: var(--font-family_primary);
+  overflow-x: hidden;
 }
 h3 {
   font-family: var(--font-family-secondary);
@@ -237,13 +241,11 @@ section {
   border: solid 2px black;
   border-radius: 8%;
 }
-.card_wrapper:hover {
-  scale: 1.025;
+/* .card_wrapper:hover {
+  scale: 1.02;
   transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-  box-shadow: 3px 6px 12px black;
-  rotate: 1deg;
-  transform: translate3d(-0.05rem, -0.1rem, 0.1rem);
-}
+  box-shadow: 1.5px 7.5px 8px rgba(0, 0, 0, 0.6);
+} */
 .student_details {
   font-family: var(--font-family-secondary);
 }
@@ -255,6 +257,44 @@ section {
 }
 
 /* ***STUDENT CARD ENDS */
+
+/* ***POP UP MODAL BEGINS */
+.hide {
+  visibility: hidden;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.student_modal {
+  max-width: 66vw;
+  min-width: 50vw;
+  box-shadow: (1px 1px 10px #333);
+  border-radius: 12px;
+  padding: 2em;
+  background-color: white;
+  position: relative;
+}
+button.closebutton {
+  position: absolute;
+  right: -1em;
+  top: -1em;
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+}
+.student_modal h1 {
+  margin-top: 0;
+}
+/* ***POP UP MODAL ENDS */
 
 @keyframes hover {
   from {

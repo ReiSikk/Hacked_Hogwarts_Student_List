@@ -12,6 +12,7 @@
     <title>Hacked Hogwarts Student List</title>
   </head>
   <body>
+    <div class="main_wrapper">
     <header>
       <h1 class="fs_xxlarge">Hacked Hogwarts Student List</h1>
     </header>
@@ -115,7 +116,7 @@
         <div class="student_grid"></div>
       </section>
       <template id="template">
-        <article id="#single_student">
+        <article class="single_student">
           <div class="card_wrapper">
             <h1 class="fs_medium" id="full_name"></h1>
             <img src="" alt="" id="image" />
@@ -129,6 +130,27 @@
                 <li id="house"><span>House: </span></li>
                 <li id="blood_type">Bloodtype: <span></span></li>
               </ul>
+                <!-- MODAL POPUP -->
+                <div id="student_info" class="modal hide">
+                  <div class="student_modal">
+                    <button class="closebutton">X</button>
+                    <h1 id="full_name">Fullname</h1>
+                    <img src="" alt="" id="image" />
+                    <ul>
+                      <li id="first_name"><span>First Name: </span></li>
+                      <li id="middle_name"><span>Middle name: </span></li>
+                      <li id="nick_name"><span>Nick name: </span></li>
+                      <li id="last_name"><span>Last name: </span></li>
+                      <li id="gender"><span>Gender: </span></li>
+                      <li id="house"><span>House: </span></li>
+                      <li id="blood_type">Bloodtype: <span></span></li>
+                    </ul>
+                    <button id="make_prefect">Add me to prefects</button>
+                    <button id="make_inquisitor">Add to Inq. Squad</button>
+                    <button id="expell">Expell student</button>
+                  </div>
+                </div>
+              <button id="open_popup">More info</button>
             </div>
           </div>
         </article>
@@ -159,6 +181,7 @@
         </div>
       </aside>
     </main>
+    </div>
   </body>
   <script src="hacked.js"></script>
 </html>
