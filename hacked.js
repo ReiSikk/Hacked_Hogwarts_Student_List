@@ -7,7 +7,6 @@ const bloodUrl = "https://petlatkea.dk/2021/hogwarts/families.json";
 window.addEventListener("DOMContentLoaded", start);
 
 let allStudents = [];
-let studentBloodStatus = {};
 
 const settings = {
   filterBy: "all",
@@ -40,10 +39,10 @@ async function start() {
 }
 
 function registerButtons() {
+  document.querySelectorAll(".sort_me").forEach((button) => button.addEventListener("click", selectSort));
   document
     .querySelectorAll("[data-action='filter']")
     .forEach((button) => button.addEventListener("click", selectFilter));
-  document.querySelectorAll("[data-action='sort']").forEach((button) => button.addEventListener("click", selectSort));
 }
 //fetch the data and pass data to prepareData function
 async function loadJSON() {
@@ -174,6 +173,7 @@ function selectFilter(event) {
 }
 
 function selectSort(event) {
+  console.log("selectSort called");
   const sortBy = event.target.dataset.sort;
   const sortDir = event.target.dataset.sortDirection;
   console.log(sortBy);

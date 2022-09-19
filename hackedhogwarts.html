@@ -20,14 +20,38 @@
         <div class="searchsort_container">
           <input class="search_bar" type="text" placeholder="Search student" id="search" />
           <select class="sort_bar" name="sort" id="sort" data-direction="asc">
-            <option value selected>Sort by:</option>
-            <option value="firstName" data-action="sort" data-sort-direction="asc">First Name A-Z</option>
-            <option value="lastName" data-action="sort" data-sort-direction="asc">Last Name A-Z</option>
-            <option value="house" data-action="sort" data-sort-direction="asc">House A-Z</option>
-            <option value="studentID" data-action="sort" data-sort-direction="asc">Student ID A-Z</option>
-            <option value="firstName" data-action="sort" data-sort-direction="asc">First Name Z-A</option>
-            <option value="lastName" data-action="sort" data-sort-direction="asc">Last Name Z-A</option>
-            <option value="house" data-action="sort" data-sort-direction="asc">House Z-A</option>
+            <option>Sort by:</option>
+            <option
+              class="sort_me"
+              value="firstname"
+              data-action="sort"
+              data-sort-direction="asc"
+              data-sort="firstname-a-z"
+            >
+              First Name A-Z
+            </option>
+            <option
+              class="sort_me"
+              value="lastname"
+              data-action="sort"
+              data-sort-direction="asc"
+              data-sort="lastname-a-z"
+            >
+              Last Name A-Z
+            </option>
+            <option class="sort_me" value="house" data-action="sort" data-sort-direction="asc" data-sort="house-a-z">
+              House A-Z
+            </option>
+            <!-- <option value="studentID" data-action="sort" data-sort-direction="asc" data-sort="studentid-a-z">
+              Student ID A-Z
+            </option> -->
+            <option class="sort_me value="firstname" data-action="sort" data-sort-direction="asc" data-sort="firstname-z-a">
+              First Name Z-A
+            </option>
+            <option class="sort_me value="lastname" data-action="sort" data-sort-direction="asc" data-sort="lastname-z-a">
+              Last Name Z-A
+            </option>
+            <option class="sort_me value="house" data-action="sort" data-sort-direction="asc" data-sort="house-z-a">House Z-A</option>
             <!--  <option value="studentID" data-action="sort" data-sort-direction="asc">Student ID Z-A</option> -->
           </select>
         </div>
