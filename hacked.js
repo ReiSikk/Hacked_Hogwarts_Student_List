@@ -7,6 +7,7 @@ const bloodUrl = "https://petlatkea.dk/2021/hogwarts/families.json";
 window.addEventListener("DOMContentLoaded", start);
 
 let allStudents = [];
+let expelledStudents = [];
 
 const settings = {
   filterBy: "all",
@@ -268,7 +269,12 @@ function filterList(filteredList) {
   if (settings.filterBy === "girls") {
     filteredList = allStudents.filter(filterByGirls);
   }
-
+  if (settings.filterBy === "expelled") {
+    filteredList = allStudents.filter(isExpelled);
+  }
+  if (settings.filterBy === "notexpelled") {
+    filteredList = allStudents.filter(isNotExpelled);
+  }
   return filteredList;
 }
 function isSlytherin(singleStudent) {
@@ -298,6 +304,12 @@ function isHalfBlood(singleStudent) {
 function isMuggle(singleStudent) {
   return singleStudent.bloodLine === "Muggle";
 }
+function isExpelled(singleStudent) {
+  return singleStudent.expelled === true;
+}
+function isNotExpelled(singleStudent) {
+  return singleStudent.expelled === false;
+}
 
 // Sorting function
 function sortList(sortedList) {
@@ -325,6 +337,21 @@ function displayStudentList(students) {
   document.querySelector(".student_grid").innerHTML = "";
   //number of students currently displayed
   document.querySelector("[data-filter-type='displayednow']").textContent = `${students.length} Students`;
+  document.querySelector("[data-filter='slytherinstats']").textContent = `Slytherin: ${
+    allStudents.filter(isSlytherin).length
+  } Students`;
+  document.querySelector("[data-filter='hufflepuffstats']").textContent = `Hufflepuff: ${
+    allStudents.filter(isHufflepuff).length
+  } Students`;
+  document.querySelector("[data-filter='ravenclawstats']").textContent = `Ravenclaw: ${
+    allStudents.filter(isRavenclaw).length
+  } Students`;
+  document.querySelector("[data-filter='gryffindorstats']").textContent = `Ravenclaw: ${
+    allStudents.filter(isGryffindor).length
+  } Students`;
+  document.querySelector("[data-filter='expelled-stats']").textContent = `Expelled: ${
+    allStudents.filter(isExpelled).length
+  } Students`;
   //build a new list
   students.forEach(displayStudent);
 }
@@ -337,15 +364,21 @@ function displayStudent(singleStudent) {
   // set clone data
   clone.querySelector("#full_name").textContent = `${singleStudent.fullname}`;
   clone.querySelector("#first_name").textContent = `First name: ${singleStudent.firstname}`;
-  clone.querySelector("#middle_name").textContent = ` Middle name: ${singleStudent.middlename}`;
-  clone.querySelector("#nick_name").textContent = `Nick name: ${singleStudent.nickname}`;
+  //clone.querySelector("#middle_name").textContent = ` Middle name: ${singleStudent.middlename}`;
+  //clone.querySelector("#nick_name").textContent = `Nick name: ${singleStudent.nickname}`;
   clone.querySelector("#last_name").textContent = `Last name: ${singleStudent.lastname}`;
   clone.querySelector("#gender").textContent = `Gender: ${singleStudent.gender}`;
-  clone.querySelector("#house").textContent = `House: ${singleStudent.house}`;
-  clone.querySelector("#blood_type span").textContent = `${singleStudent.bloodLine}`;
+  //clone.querySelector("#house").textContent = `House: ${singleStudent.house}`;
+  //clone.querySelector("#blood_type span").textContent = `${singleStudent.bloodLine}`;
   clone.querySelector("#image").src = singleStudent.image;
-  clone.querySelector("#image").alt;
-  clone.querySelector("#open_popup").addEventListener("click", openModal);
+  clone.querySelector("#image").alt = `${singleStudent.firstname} ${singleStudent.lastname}`;
+  clone.querySelector("#open_popup").addEventListener("click", clickModal);
+
+  //DETAILS MODAL
+  function clickModal() {
+    openModal(singleStudent);
+    console.log(singleStudent);
+  }
 
   //grab the parent
   const parent = document.querySelector(".student_grid");
@@ -355,6 +388,21 @@ function displayStudent(singleStudent) {
 
 //*POP UP MODAL STUFF HERE FOR THE MOMENT A LEAST
 function openModal(singleStudent) {
+  document.querySelector(".full_name").textContent = `${singleStudent.fullname}`;
+  document.querySelector(".first_name").textContent = `First name: ${singleStudent.firstname}`;
+  document.querySelector(".middle_name").textContent = ` Middle name: ${singleStudent.middlename}`;
+  document.querySelector(".nick_name").textContent = `Nick name: ${singleStudent.nickname}`;
+  document.querySelector(".last_name").textContent = `Last name: ${singleStudent.lastname}`;
+  document.querySelector(".gender").textContent = `Gender: ${singleStudent.gender}`;
+  document.querySelector(".house").textContent = `House: ${singleStudent.house}`;
+  document.querySelector(".blood_type span").textContent = `${singleStudent.bloodLine}`;
+  document.querySelector(".image").src = singleStudent.image;
+  document.querySelector(".image").alt = `${singleStudent.firstname} ${singleStudent.lastname}`;
+  console.log("openModal");
+  document.querySelector(".closebutton").addEventListener("click", closeModal);
+  document.querySelector("#student_info").classList.remove("hide");
+}
+function clickModal(singleStudent) {
   console.log("openModal");
   document.querySelector(".closebutton").addEventListener("click", closeModal);
   document.querySelector("#student_info").classList.remove("hide");
