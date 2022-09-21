@@ -19,7 +19,7 @@
   --spacing-xxlarge: 6.854rem;
   --spacing-xxxlarge: 11.089rem;
   /* font fam */
-  --font-family-primary: "Boska", serif;
+  --font-family-primary: "Karla", serif;
   --font-family-secondary: "General Sans", sans-serif;
 }
 
@@ -155,6 +155,18 @@ button:hover {
   margin: 0.25em;
 }
 
+.sort_bar button.sortby {
+  text-decoration: underline;
+}
+
+.sort_bar button.sortby[data-sort-direction="asc"]::after {
+  content: "⇓";
+}
+
+.sort_bar button.sortby[data-sort-direction="desc"]::after {
+  content: "⇑";
+}
+
 /* ********* Left ASIDE ends******** */
 
 /* ***Right ASIDE starts */
@@ -200,10 +212,7 @@ button:hover {
   padding: 0.25em;
   text-align: center;
 }
-.sort_bar {
-  text-align: center;
-  padding: 0.25em;
-}
+
 /* ***Right ASIDE ends */
 
 /* *** MAIN GRID STARTS */
@@ -261,6 +270,9 @@ section {
 /* ***POP UP MODAL BEGINS */
 .hide {
   visibility: hidden;
+}
+.display_none {
+  display: none;
 }
 .modal {
   position: fixed;

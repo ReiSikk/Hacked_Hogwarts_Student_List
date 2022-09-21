@@ -13,174 +13,159 @@
   </head>
   <body>
     <div class="main_wrapper">
-    <header>
-      <h1 class="fs_xxlarge">Hacked Hogwarts Student List</h1>
-    </header>
-    <main>
-      <aside class="side_bar">
-        <div class="searchsort_container">
-          <input class="search_bar" type="text" placeholder="Search student" id="search" />
-          <select class="sort_bar" name="sort" id="sort" data-direction="asc">
-            <option>Sort by:</option>
-            <option
-              class="sort_me"
-              value="firstname"
-              data-action="sort"
-              data-sort-direction="asc"
-              data-sort="firstname-a-z"
-            >
-              First Name A-Z
-            </option>
-            <option
-              class="sort_me"
-              value="lastname"
-              data-action="sort"
-              data-sort-direction="asc"
-              data-sort="lastname-a-z"
-            >
-              Last Name A-Z
-            </option>
-            <option class="sort_me" value="house" data-action="sort" data-sort-direction="asc" data-sort="house-a-z">
-              House A-Z
-            </option>
-            <!-- <option value="studentID" data-action="sort" data-sort-direction="asc" data-sort="studentid-a-z">
+      <header>
+        <h1 class="fs_xxlarge">Hacked Hogwarts Student List</h1>
+      </header>
+      <main>
+        <aside class="side_bar">
+          <div class="searchsort_container">
+            <div class="search_wrapper">
+              <label for="search">Search students by name</label>
+              <input class="search_bar" type="search" placeholder="Search student" id="search" data-search />
+            </div>
+            <div class="sort_bar button_container" name="sort" id="sort">
+              <span>Sort by:</span>
+              <button data-action="sort" data-sort-direction="asc" data-sort="firstname-az">First Name A-Z</button>
+              <button data-action="sort" data-sort-direction="asc" data-sort="lastname-az">Last Name A-Z</button>
+              <button data-action="sort" data-sort-direction="asc" data-sort="house-az">House A-Z</button>
+              <!-- <option value="studentID" data-action="sort" data-sort-direction="asc" data-sort="studentid-a-z">
               Student ID A-Z
             </option> -->
-            <option class="sort_me value="firstname" data-action="sort" data-sort-direction="asc" data-sort="firstname-z-a">
-              First Name Z-A
-            </option>
-            <option class="sort_me value="lastname" data-action="sort" data-sort-direction="asc" data-sort="lastname-z-a">
-              Last Name Z-A
-            </option>
-            <option class="sort_me value="house" data-action="sort" data-sort-direction="asc" data-sort="house-z-a">House Z-A</option>
-            <!--  <option value="studentID" data-action="sort" data-sort-direction="asc">Student ID Z-A</option> -->
-          </select>
-        </div>
-        <div>
-          <div class="filter_house">
-            <h3>Filter by house</h3>
-            <div class="button_container">
-              <button class="fs_small" data-action="filter" data-filter="slytherin" data-filter-type="house">
-                Slytherin
-              </button>
-              <button class="fs_small" data-action="filter" data-filter="hufflepuff" data-filter-type="house">
-                Hufflepuff
-              </button>
-              <button class="fs_small" data-action="filter" data-filter="ravenclaw" data-filter-type="house">
-                Ravenclaw
-              </button>
-              <button class="fs_small" data-action="filter" data-filter="gryffindor" data-filter-type="house">
-                Gryffindor
-              </button>
+              <!--    <button data-action="sort" data-sort-direction="desc" data-sort="firstname-za">First Name Z-A</button>
+              <button data-action="sort" data-sort-direction="desc" data-sort="lastname-za">Last Name Z-A</button>
+              <button data-action="sort" data-sort-direction="desc" data-sort="house-za">House Z-A</button> -->
+              <!--  <option value="studentID" data-action="sort" data-sort-direction="asc">Student ID Z-A</option> -->
             </div>
           </div>
-          <div class="filter_blood">
-            <h3>Filter by blood</h3>
-            <div class="button_container">
-              <button class="fs_small" data-action="filter" data-filter="pureblood" data-filter-type="blood">
-                Pure Blood
-              </button>
-              <button class="fs_small" data-action="filter" data-filter="halfblood" data-filter-type="blood">
-                Half Blood
-              </button>
-              <button class="fs_small" data-action="filter" data-filter="allblood" data-filter-type="blood">All</button>
+          <div>
+            <div class="filter_house">
+              <h3>Filter by house</h3>
+              <div class="button_container">
+                <button class="fs_small" data-action="filter" data-filter="slytherin" data-filter-type="house">
+                  Slytherin
+                </button>
+                <button class="fs_small" data-action="filter" data-filter="hufflepuff" data-filter-type="house">
+                  Hufflepuff
+                </button>
+                <button class="fs_small" data-action="filter" data-filter="ravenclaw" data-filter-type="house">
+                  Ravenclaw
+                </button>
+                <button class="fs_small" data-action="filter" data-filter="gryffindor" data-filter-type="house">
+                  Gryffindor
+                </button>
+              </div>
+            </div>
+            <div class="filter_blood">
+              <h3>Filter by blood</h3>
+              <div class="button_container">
+                <button class="fs_small" data-action="filter" data-filter="pureblood" data-filter-type="blood">
+                  Pure Blood
+                </button>
+                <button class="fs_small" data-action="filter" data-filter="halfblood" data-filter-type="blood">
+                  Half Blood
+                </button>
+                <button class="fs_small" data-action="filter" data-filter="allblood" data-filter-type="blood">
+                  All
+                </button>
+              </div>
+            </div>
+            <div class="filter_gender">
+              <h3>Filter by gender</h3>
+              <div class="button_container">
+                <button class="fs_small" data-action="filter" data-filter="boys" data-filter-type="gender">Boys</button>
+                <button class="fs_small" data-action="filter" data-filter="girls" data-filter-type="gender">
+                  Girls
+                </button>
+              </div>
+            </div>
+            <div class="filter_status">
+              <h3>Filter by status</h3>
+              <div class="button_container">
+                <button class="fs_small" data-action="filter" data-filter="expelled" data-filter-type="status">
+                  Expelled
+                </button>
+                <button class="fs_small" data-action="filter" data-filter="notexpelled" data-filter-type="status">
+                  Non expelled
+                </button>
+                <button class="fs_small" data-action="filter" data-filter="prefects" data-filter-type="status">
+                  Prefects
+                </button>
+                <button class="fs_small" data-action="filter" data-filter="inqsquad" data-filter-type="status">
+                  Inquisitorial Squad
+                </button>
+              </div>
             </div>
           </div>
-          <div class="filter_gender">
-            <h3>Filter by gender</h3>
-            <div class="button_container">
-              <button class="fs_small" data-action="filter" data-filter="boys" data-filter-type="gender">Boys</button>
-              <button class="fs_small" data-action="filter" data-filter="girls" data-filter-type="gender">Girls</button>
-            </div>
-          </div>
-          <div class="filter_status">
-            <h3>Filter by status</h3>
-            <div class="button_container">
-              <button class="fs_small" data-action="filter" data-filter="expelled" data-filter-type="status">
-                Expelled
-              </button>
-              <button class="fs_small" data-action="filter" data-filter="notexpelled" data-filter-type="status">
-                Non expelled
-              </button>
-              <button class="fs_small" data-action="filter" data-filter="prefects" data-filter-type="status">
-                Prefects
-              </button>
-              <button class="fs_small" data-action="filter" data-filter="inqsquad" data-filter-type="status">
-                Inquisitorial Squad
-              </button>
-            </div>
-          </div>
-        </div>
-      </aside>
-      <section>
-        <div class="student_grid"></div>
-      </section>
-      <template id="template">
-        <article class="single_student">
-          <div class="card_wrapper">
-            <h1 class="fs_medium" id="full_name"></h1>
-            <img src="" alt="" id="image" />
-            <div class="student_details">
-              <ul>
-                <li id="first_name"><span>First Name: </span></li>
-                <li id="middle_name"><span>Middle name: </span></li>
-                <li id="nick_name"><span>Nick name: </span></li>
-                <li id="last_name"><span>Last name: </span></li>
-                <li id="gender"><span>Gender: </span></li>
-                <li id="house"><span>House: </span></li>
-                <li id="blood_type">Bloodtype: <span></span></li>
-              </ul>
+        </aside>
+        <section>
+          <div class="student_grid"></div>
+        </section>
+        <template id="template">
+          <article class="single_student">
+            <div class="card_wrapper">
+              <h1 class="fs_medium" id="full_name"></h1>
+              <img src="" alt="" id="image" />
+              <div class="student_details">
+                <ul>
+                  <li id="first_name"><span>First Name: </span></li>
+                  <li id="middle_name"><span>Middle name: </span></li>
+                  <li id="nick_name"><span>Nick name: </span></li>
+                  <li id="last_name"><span>Last name: </span></li>
+                  <li id="gender"><span>Gender: </span></li>
+                  <li id="house"><span>House: </span></li>
+                  <li id="blood_type">Bloodtype: <span></span></li>
+                </ul>
                 <!-- MODAL POPUP -->
                 <div id="student_info" class="modal hide">
                   <div class="student_modal">
                     <button class="closebutton">X</button>
-                    <h1 id="full_name">Fullname</h1>
-                    <img src="" alt="" id="image" />
+                    <h1 class="full_name">Fullname</h1>
+                    <img src="" alt="" class="image" />
                     <ul>
-                      <li id="first_name"><span>First Name: </span></li>
-                      <li id="middle_name"><span>Middle name: </span></li>
-                      <li id="nick_name"><span>Nick name: </span></li>
-                      <li id="last_name"><span>Last name: </span></li>
-                      <li id="gender"><span>Gender: </span></li>
-                      <li id="house"><span>House: </span></li>
-                      <li id="blood_type">Bloodtype: <span></span></li>
+                      <li class="first_name"><span>First Name: </span></li>
+                      <li class="middle_name"><span>Middle name: </span></li>
+                      <li class="nick_name"><span>Nick name: </span></li>
+                      <li class="last_name"><span>Last name: </span></li>
+                      <li class="gender"><span>Gender: </span></li>
+                      <li class="house"><span>House: </span></li>
+                      <li class="blood_type">Bloodtype: <span></span></li>
                     </ul>
                     <button id="make_prefect">Add me to prefects</button>
                     <button id="make_inquisitor">Add to Inq. Squad</button>
                     <button id="expell">Expell student</button>
                   </div>
                 </div>
-              <button id="open_popup">More info</button>
+                <button id="open_popup">More info</button>
+              </div>
+            </div>
+          </article>
+        </template>
+        <aside class="stats_bar">
+          <div>
+            <h2>About Hogwarts</h2>
+            <div class="displayed_now">
+              <h3>Displaying:</h3>
+              <div data-filter-type="displayednow"></div>
+            </div>
+            <div class="house_stats">
+              <h3>House:</h3>
+              <ul>
+                <li data-filter-type="housestats" data-filter="slytherinstats">Slytherin</li>
+                <li data-filter-type="housestats" data-filter="hufflepuffstats">Hufflepuff</li>
+                <li data-filter-type="housestats" data-filter="ravenclawstats">Ravenclaw</li>
+                <li data-filter-type="housestats" data-filter="gryffindorstats">Gryffindor</li>
+              </ul>
+            </div>
+            <div class="students_stats">
+              <h3>Students:</h3>
+              <ul>
+                <li data-filter-type="students_stats" data-filter="notexpelled-stats">Not expelled:</li>
+                <li data-filter-type="students_stats" data-filter="expelled-stats">Expelled:</li>
+              </ul>
             </div>
           </div>
-        </article>
-      </template>
-      <aside class="stats_bar">
-        <div>
-          <h2>About Hogwarts</h2>
-          <div class="displayed_now">
-            <h3>Displaying:</h3>
-            <div data-filter-type="displayednow"></div>
-          </div>
-          <div class="house_stats">
-            <h3>House:</h3>
-            <ul>
-              <li data-filter-type="housestats" data-filter="slytherinstats">Slytherin</li>
-              <li data-filter-type="housestats" data-filter="hufflepuffstats">Hufflepuff</li>
-              <li data-filter-type="housestats" data-filter="ravenclawstats">Ravenclaw</li>
-              <li data-filter-type="housestats" data-filter="gryffindorstats">Gryffindor</li>
-            </ul>
-          </div>
-          <div class="students_stats">
-            <h3>Students:</h3>
-            <ul>
-              <li data-filter-type="students_stats" data-filter="notexpelled-stats">Not expelled:</li>
-              <li data-filter-type="students_stats" data-filter="expelled-stats">Expelled:</li>
-            </ul>
-          </div>
-        </div>
-      </aside>
-    </main>
+        </aside>
+      </main>
     </div>
   </body>
   <script src="hacked.js"></script>

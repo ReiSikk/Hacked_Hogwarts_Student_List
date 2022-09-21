@@ -11,7 +11,8 @@ let allStudents = [];
 const settings = {
   filterBy: "all",
   sortBy: "firstname",
-  sortDir: "asc",
+  sortDir: "",
+  searchBy: "",
   blood: undefined,
 };
 
@@ -39,10 +40,13 @@ async function start() {
 }
 
 function registerButtons() {
-  document.querySelectorAll(".sort_me").forEach((button) => button.addEventListener("click", selectSort));
+  document.querySelectorAll("[data-action='sort']").forEach((button) => {
+    button.addEventListener("click", selectSort);
+  });
   document
     .querySelectorAll("[data-action='filter']")
     .forEach((button) => button.addEventListener("click", selectFilter));
+  document.querySelector(".search_bar").addEventListener("input", searchString);
 }
 //fetch the data and pass data to prepareData function
 async function loadJSON() {
@@ -154,6 +158,20 @@ function prepareStudentData(jsonObject) {
 }
 
 //* ********************************************************************************* Set sort and set filter functions ****************************************** */
+function searchString() {
+  const searchBy = document.querySelector(".search_bar").value;
+  settings.searchBy = searchBy.toLowerCase();
+  const searchedList = allStudents.filter(isTheSearchedStudent);
+  function isTheSearchedStudent(singleStudent) {
+    if (
+      singleStudent.firstname.toLowerCase().includes(searchBy) ||
+      singleStudent.lastname.toLowerCase().includes(searchBy)
+    )
+      return singleStudent;
+  }
+  displayStudentList(searchedList);
+}
+
 function findBloodType(lastname) {
   let pureblood = settings.blood.pure;
   let halfblood = settings.blood.half;
@@ -173,17 +191,19 @@ function selectFilter(event) {
 }
 
 function selectSort(event) {
-  console.log("selectSort called");
+  /* console.log(event.target.value); */
   const sortBy = event.target.dataset.sort;
-  const sortDir = event.target.dataset.sortDirection;
   console.log(sortBy);
+  const sortDir = event.target.dataset.sortDirection;
+  //console.log(sortDir);
 
   //find "old" sortBy element and remove "sortBy"
-  const oldElement = document.querySelector(`[data-sort="${settings.sortBy}"]`);
-  oldElement.classList.remove("sortby");
+  let oldElement = document.querySelector(`[data-sort="${settings.sortBy}"]`);
+  console.log(oldElement);
+  /* oldElement.classList.remove("sortby"); */
 
   //indicate active sort direction
-  event.target.classList.add("sortby");
+  /*   event.target.classList.add("sortby"); */
 
   // toggle the direction
   if (sortDir === "asc") {
@@ -191,9 +211,8 @@ function selectSort(event) {
   } else {
     event.target.dataset.sortDirection = "asc";
   }
-  console.log(`User selected ${sortBy} - ${sortDir}`);
+  //console.log(`User selected ${sortBy} - ${sortDir}`);
   setSort(sortBy, sortDir);
-  /* setFilter(filter); */
 }
 
 function setFilter(filter) {
@@ -203,8 +222,11 @@ function setFilter(filter) {
 
 function setSort(sortBy, sortDir) {
   //storing values
+
   settings.sortBy = sortBy;
+  console.log(`settings.sortBy is: ${settings.sortBy}`);
   settings.sortDir = sortDir;
+  console.log(`settings.sortDir is: ${settings.sortDir}`);
   //updating list with the sorting
   buildList();
 }
