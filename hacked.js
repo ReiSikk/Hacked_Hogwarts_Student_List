@@ -12,7 +12,7 @@ let expelledStudents = [];
 const settings = {
   filterBy: "all",
   sortBy: "firstname",
-  sortDir: "",
+  sortDir: "asc",
   searchBy: "",
   blood: undefined,
 };
@@ -35,18 +35,18 @@ const Student = {
 //* INITIALIZE
 async function start() {
   console.log("start");
-  await loadJSON();
+  loadJSON();
   registerButtons();
-  buildList();
+  //buildList();
 }
 
 function registerButtons() {
-  document.querySelectorAll("[data-action='sort']").forEach((button) => {
-    button.addEventListener("click", selectSort);
-  });
   document
     .querySelectorAll("[data-action='filter']")
     .forEach((button) => button.addEventListener("click", selectFilter));
+  document.querySelectorAll("[data-action='sort']").forEach((button) => {
+    button.addEventListener("click", selectSort);
+  });
   document.querySelector(".search_bar").addEventListener("input", searchString);
 }
 //fetch the data and pass data to prepareData function
@@ -190,56 +190,10 @@ function selectFilter(event) {
   //console.log(`User selected: ${filter}`);
   setFilter(filter);
 }
-
-function selectSort(event) {
-  /* console.log(event.target.value); */
-  const sortBy = event.target.dataset.sort;
-  console.log(sortBy);
-  const sortDir = event.target.dataset.sortDirection;
-  //console.log(sortDir);
-
-  //find "old" sortBy element and remove "sortBy"
-  let oldElement = document.querySelector(`[data-sort="${settings.sortBy}"]`);
-  console.log(oldElement);
-  /* oldElement.classList.remove("sortby"); */
-
-  //indicate active sort direction
-  /*   event.target.classList.add("sortby"); */
-
-  // toggle the direction
-  if (sortDir === "asc") {
-    event.target.dataset.sortDirection = "desc";
-  } else {
-    event.target.dataset.sortDirection = "asc";
-  }
-  //console.log(`User selected ${sortBy} - ${sortDir}`);
-  setSort(sortBy, sortDir);
-}
-
 function setFilter(filter) {
   settings.filterBy = filter;
   buildList();
 }
-
-function setSort(sortBy, sortDir) {
-  //storing values
-
-  settings.sortBy = sortBy;
-  console.log(`settings.sortBy is: ${settings.sortBy}`);
-  settings.sortDir = sortDir;
-  console.log(`settings.sortDir is: ${settings.sortDir}`);
-  //updating list with the sorting
-  buildList();
-}
-
-function buildList() {
-  const currentList = filterList(allStudents);
-  /* console.log(currentList); */
-  const sortedList = sortList(currentList);
-  //console.log(sortedList);
-  displayStudentList(sortedList);
-}
-
 function filterList(filteredList) {
   if (settings.filterBy === "slytherin") {
     //create a filtered list of only slytherin house members
@@ -277,6 +231,71 @@ function filterList(filteredList) {
   }
   return filteredList;
 }
+
+function selectSort(event) {
+  console.log("selectSort called");
+  const sortBy = event.target.dataset.sort;
+  const sortDir = event.target.dataset.sortDirection;
+
+  //find "old" sortBy element and remove "sortBy"
+  /*   console.log(`settings.sortBy is: ${settings.sortBy}`);
+  const oldElement = document.querySelector(`[data-sort="${settings.sortBy}"]`);
+  console.log(oldElement);
+  oldElement.classList.remove("sortby"); */
+
+  //indicate active sort direction
+  event.target.classList.add("sortby");
+
+  // toggle the direction
+  if (sortDir === "asc") {
+    event.target.dataset.sortDirection = "desc";
+  } else {
+    event.target.dataset.sortDirection = "asc";
+  }
+  console.log(`User selected ${sortBy} - ${sortDir}`);
+  setSort(sortBy, sortDir);
+}
+
+function setSort(sortBy, sortDir) {
+  console.log("setSort called");
+  //storing values
+
+  settings.sortBy = sortBy;
+  //console.log(`settings.sortBy is: ${settings.sortBy}`);
+  settings.sortDir = sortDir;
+  //console.log(`settings.sortDir is: ${settings.sortDir}`);
+  //updating list with the sorting
+  buildList();
+}
+// Sorting function
+function sortList(sortedList) {
+  let direction = 1;
+  if (settings.sortDir === "desc") {
+    direction = -1;
+  } else {
+    settings.direction = 1;
+  }
+  sortedList = sortedList.sort(sortByProperty);
+
+  function sortByProperty(studentA, studentB) {
+    if (studentA[settings.sortBy] < studentB[settings.sortBy]) {
+      return -1 * direction;
+    } else {
+      return 1 * direction;
+    }
+  }
+  return sortedList;
+}
+
+function buildList() {
+  //console.log("buildList called");
+  const currentList = filterList(allStudents);
+  /* console.log(currentList); */
+  const sortedList = sortList(currentList);
+  //console.log(sortedList);
+  displayStudentList(sortedList);
+}
+
 function isSlytherin(singleStudent) {
   return singleStudent.house === "Slytherin";
 }
@@ -311,26 +330,6 @@ function isNotExpelled(singleStudent) {
   return singleStudent.expelled === false;
 }
 
-// Sorting function
-function sortList(sortedList) {
-  let direction = 1;
-  if (settings.sortDir === "desc") {
-    direction = -1;
-  } else {
-    direction = 1;
-  }
-  sortedList = sortedList.sort(sortByProperty);
-
-  function sortByProperty(studentA, studentB) {
-    if (studentA[settings.sortBy] < studentB[settings.sortBy]) {
-      return -1 * direction;
-    } else {
-      return 1 * direction;
-    }
-  }
-  return sortedList;
-}
-
 //* ******************  DISPLAY FUNCTIONS  ************************************* */
 
 function displayStudentList(students) {
@@ -346,12 +345,12 @@ function displayStudentList(students) {
   document.querySelector("[data-filter='ravenclawstats']").textContent = `Ravenclaw: ${
     allStudents.filter(isRavenclaw).length
   } Students`;
-  document.querySelector("[data-filter='gryffindorstats']").textContent = `Ravenclaw: ${
+  document.querySelector("[data-filter='gryffindorstats']").textContent = `Gryffindor: ${
     allStudents.filter(isGryffindor).length
   } Students`;
-  document.querySelector("[data-filter='expelled-stats']").textContent = `Expelled: ${
-    allStudents.filter(isExpelled).length
-  } Students`;
+  document.querySelector(
+    "[data-filter='expelled-stats']"
+  ).textContent = `Expelled: ${expelledStudents.length} Students`;
   //build a new list
   students.forEach(displayStudent);
 }
@@ -370,7 +369,11 @@ function displayStudent(singleStudent) {
   clone.querySelector("#gender").textContent = `Gender: ${singleStudent.gender}`;
   //clone.querySelector("#house").textContent = `House: ${singleStudent.house}`;
   //clone.querySelector("#blood_type span").textContent = `${singleStudent.bloodLine}`;
+  if (singleStudent.expelled === true) {
+    clone.querySelector("#image").src = "./imagesHogwarts/placekitty.jpeg";
+  }
   clone.querySelector("#image").src = singleStudent.image;
+
   clone.querySelector("#image").alt = `${singleStudent.firstname} ${singleStudent.lastname}`;
   clone.querySelector("#open_popup").addEventListener("click", clickModal);
 
@@ -386,8 +389,9 @@ function displayStudent(singleStudent) {
   parent.appendChild(clone);
 }
 
-//*POP UP MODAL STUFF HERE FOR THE MOMENT A LEAST
+//*POP UP MODAL Functions here
 function openModal(singleStudent) {
+  //console.log("openModal");
   document.querySelector(".full_name").textContent = `${singleStudent.fullname}`;
   document.querySelector(".first_name").textContent = `First name: ${singleStudent.firstname}`;
   document.querySelector(".middle_name").textContent = ` Middle name: ${singleStudent.middlename}`;
@@ -398,9 +402,37 @@ function openModal(singleStudent) {
   document.querySelector(".blood_type span").textContent = `${singleStudent.bloodLine}`;
   document.querySelector(".image").src = singleStudent.image;
   document.querySelector(".image").alt = `${singleStudent.firstname} ${singleStudent.lastname}`;
-  console.log("openModal");
+  document.querySelectorAll("#expell").forEach((button) => button.addEventListener("click", tryToExpell));
   document.querySelector(".closebutton").addEventListener("click", closeModal);
   document.querySelector("#student_info").classList.remove("hide");
+  function tryToExpell() {
+    //console.log("tryToExpell called");
+    if (singleStudent.expelled === false) {
+      //when they are expelled they can't be any part of perfects or inq squad
+      singleStudent.expelled = true;
+      singleStudent.prefect = false;
+      singleStudent.inquisitorialSquad = false;
+      //document.querySelector("#student_info .image").classList.add("is_expelled");
+      document.querySelector(".image").src = "./imagesHogwarts/placekitty.jpeg";
+      //remove eventlistener from expellBtn
+      document.querySelector("#expell").removeEventListener("click", tryToExpell);
+      //call remove student with the selected student as param
+      removeStudent(singleStudent);
+      //console.log(`the student is expelled: ${singleStudent.expelled}`);
+    } else {
+      //console.log(`the student is expelled: ${singleStudent.expelled}`);
+    }
+  }
+  function removeStudent(singleStudent) {
+    //const expelledStudentIndex = allStudents.indexOf(singleStudent);
+    const expelled = expelledStudents.push(singleStudent);
+    //console.log("The expelled students array: ", expelledStudents);
+    //console.log(`The expelled student is ${singleStudent.fullname}`);
+    allStudents = allStudents.filter(isNotExpelled);
+    //console.log(`Nr of all students is: ${allStudents.length}`);
+    buildList();
+    //console.log("The remaining students are", allStudents);
+  }
 }
 function clickModal(singleStudent) {
   console.log("openModal");
