@@ -225,10 +225,12 @@ function filterList(filteredList) {
   }
   if (settings.filterBy === "expelled") {
     filteredList = expelledStudents.filter(isExpelled);
-    console.log(settings.filterBy);
   }
   if (settings.filterBy === "notexpelled") {
     filteredList = allStudents.filter(isNotExpelled);
+  }
+  if (settings.filterBy === "prefects") {
+    filteredList = allStudents.filter(isPrefect);
   }
   return filteredList;
 }
@@ -330,6 +332,9 @@ function isExpelled(singleStudent) {
 function isNotExpelled(singleStudent) {
   return singleStudent.expelled === false;
 }
+function isPrefect(singleStudent) {
+  return singleStudent.prefect === true;
+}
 
 //* ******************  DISPLAY FUNCTIONS  ************************************* */
 
@@ -352,6 +357,9 @@ function displayStudentList(students) {
   document.querySelector(
     "[data-filter='expelled-stats']"
   ).textContent = `Expelled: ${expelledStudents.length} Students`;
+  document.querySelector(
+    "[data-filter='notexpelled-stats']"
+  ).textContent = `Not expelled: ${allStudents.length} Students`;
   //build a new list
   students.forEach(displayStudent);
 }
@@ -370,9 +378,7 @@ function displayStudent(singleStudent) {
   clone.querySelector("#gender").textContent = `Gender: ${singleStudent.gender}`;
   //clone.querySelector("#house").textContent = `House: ${singleStudent.house}`;
   //clone.querySelector("#blood_type span").textContent = `${singleStudent.bloodLine}`;
-  if (singleStudent.expelled === true) {
-    clone.querySelector("#image").src = "./imagesHogwarts/placekitty.jpeg";
-  }
+
   clone.querySelector("#image").src = singleStudent.image;
 
   clone.querySelector("#image").alt = `${singleStudent.firstname} ${singleStudent.lastname}`;
@@ -381,7 +387,7 @@ function displayStudent(singleStudent) {
   //DETAILS MODAL
   function clickModal() {
     openModal(singleStudent);
-    console.log(singleStudent);
+    //console.log(singleStudent);
   }
 
   //grab the parent
@@ -390,7 +396,6 @@ function displayStudent(singleStudent) {
   parent.appendChild(clone);
 }
 
-//*POP UP MODAL Functions here
 function openModal(singleStudent) {
   //console.log("openModal");
   document.querySelector(".full_name").textContent = `${singleStudent.fullname}`;
@@ -403,28 +408,29 @@ function openModal(singleStudent) {
   document.querySelector(".blood_type span").textContent = `${singleStudent.bloodLine}`;
   document.querySelector(".image").src = singleStudent.image;
   document.querySelector(".image").alt = `${singleStudent.firstname} ${singleStudent.lastname}`;
-  document.querySelectorAll("#expell").forEach((button) => button.addEventListener("click", tryToExpell));
+  document.querySelectorAll("#expell").forEach((button) => button.addEventListener("click", expellStudent));
   document.querySelector(".closebutton").addEventListener("click", closeModal);
+  document.querySelector("[data-field=prefect]").addEventListener("click", clickPrefect);
+  if (singleStudent.prefect === true) {
+    document.querySelector("[data-prefect='false']").dataset.prefect = true;
+    document.querySelector("[data-filter='prefect']").textContent = "Revoke prefect status";
+  }
   document.querySelector("#student_info").classList.remove("hide");
-  function tryToExpell() {
-    //console.log("tryToExpell called");
+  function expellStudent() {
     if (singleStudent.expelled === false) {
       //when they are expelled they can't be any part of perfects or inq squad
       singleStudent.expelled = true;
       singleStudent.prefect = false;
       singleStudent.inquisitorialSquad = false;
-      //document.querySelector("#student_info .image").classList.add("is_expelled");
-      document.querySelector(".image").src = "./imagesHogwarts/placekitty.jpeg";
       //remove eventlistener from expellBtn
-      document.querySelector("#expell").removeEventListener("click", tryToExpell);
+      document.querySelector("#expell").removeEventListener("click", expellStudent);
       //call remove student with the selected student as param
       removeStudent(singleStudent);
-      //console.log(`the student is expelled: ${singleStudent.expelled}`);
-    } else {
       //console.log(`the student is expelled: ${singleStudent.expelled}`);
     }
   }
   function removeStudent(singleStudent) {
+    console.log("removeStudent");
     //const expelledStudentIndex = allStudents.indexOf(singleStudent);
     const expelled = expelledStudents.push(singleStudent);
     //console.log("The expelled students array: ", expelledStudents);
@@ -434,6 +440,85 @@ function openModal(singleStudent) {
     buildList();
     //console.log("The remaining students are", allStudents);
   }
+  //check if student is prefect or not
+  function clickPrefect(event) {
+    console.log("clickPrefect called");
+    if (singleStudent.prefect === true) {
+      singleStudent.prefect = false;
+    } else {
+      tryToMakePrefect(singleStudent);
+    }
+    buildList();
+  }
+}
+//make student a prefect
+function tryToMakePrefect(prefectCandidate) {
+  console.log("tryToMakePrefect");
+  //filter of all prefects
+  const prefects = allStudents.filter((singleStudent) => singleStudent.prefect);
+
+  // all the prefects where the house is the same as the selected prefect (array object)
+  const other = prefects.filter((singleStudent) => singleStudent.house === prefectCandidate.house);
+  //nr of prefects
+  const nrOfPrefects = other.length;
+  // if there is another student of the same house
+  if (other !== undefined && nrOfPrefects >= 2) {
+    console.log("there can only be two prefects per house");
+    removeAorB(prefects[0], prefects[1]);
+  } else {
+    makePrefect(prefectCandidate);
+  }
+  function removeAorB(prefectA, prefectB) {
+    // ask the user to ignore or remove A or B
+    document.querySelector("#remove_aorb").classList.remove("hide");
+    document.querySelector("#remove_aorb .closebutton").addEventListener("click", closeDialog);
+    document.querySelector("#remove_aorb #removea").addEventListener("click", clickRemoveA);
+    document.querySelector("#remove_aorb #removeb").addEventListener("click", clickRemoveB);
+
+    // show names on the buttons
+    document.querySelector("#remove_aorb .candidate1").textContent = `${prefectA.firstname}, from ${prefectA.house}`;
+    document.querySelector("#remove_aorb .candidate2").textContent = `${prefectB.firstname}, from ${prefectB.house}`;
+    //if ignore do nothing
+
+    function closeDialog() {
+      document.querySelector("#remove_aorb").classList.add("hide");
+      document.querySelector("#remove_aorb .closebutton").removeEventListener("click", closeDialog);
+      document.querySelector("#removea").removeEventListener("click", clickRemoveA);
+      document.querySelector("#removeb").removeEventListener("click", clickRemoveB);
+    }
+    // if remove A
+    function clickRemoveA() {
+      console.log(prefectA);
+      removePrefect(prefectA);
+      makePrefect(prefectCandidate);
+      buildList();
+      closeDialog();
+      console.log("click A is not a prefect anymore");
+      console.log("prefects after clickremoveA are", prefects);
+    }
+    // if remove B
+    function clickRemoveB() {
+      removePrefect(prefectB);
+      makePrefect(prefectCandidate);
+      buildList();
+      closeDialog();
+      console.log("click B is not a prefect anymore");
+      console.log("prefects after clickremoveB are", prefects);
+    }
+    function removePrefect(studentPrefect) {
+      console.log("removePrefect called");
+      studentPrefect.prefect === false;
+      console.log(prefects);
+    }
+  }
+  function makePrefect(singleStudent) {
+    console.log(singleStudent);
+    console.log("makeprefect called");
+    singleStudent.prefect = true;
+    console.log("This student is now a prefect: ", singleStudent.prefect);
+  }
+
+  console.log("The prefects are: ", prefects);
 }
 function clickModal(singleStudent) {
   console.log("openModal");

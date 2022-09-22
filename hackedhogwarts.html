@@ -80,7 +80,7 @@
                 <button class="fs_small" data-action="filter" data-filter="notexpelled" data-filter-type="status">
                   Non expelled
                 </button>
-                <button class="fs_small" data-action="filter" data-filter="prefects" data-filter-type="status">
+                <button class="fs_small" data-action="filter" data-filter="prefect" data-filter-type="status">
                   Prefects
                 </button>
                 <button class="fs_small" data-action="filter" data-filter="inqsquad" data-filter-type="status">
@@ -123,7 +123,7 @@
                       <li class="house"><span>House: </span></li>
                       <li class="blood_type">Bloodtype: <span></span></li>
                     </ul>
-                    <button id="make_prefect">Add me to prefects</button>
+                    <button data-action="choice" data-prefect="false" data-field="prefect">Make a prefect</button>
                     <button id="make_inquisitor">Add to Inq. Squad</button>
                     <button id="expell">Expell student</button>
                   </div>
@@ -133,6 +133,19 @@
             </div>
           </article>
         </template>
+        <!-- Remove A or B popup -->
+        <div id="remove_aorb" class="modal hide">
+          <div class="dialog">
+            <button class="closebutton">X</button>
+            <h1>Warning!</h1>
+            <p>
+              There can only be 2 winners in total<br />
+              Do you want to remove one of the exsisting winners?
+            </p>
+            <button id="removea">Remove <span class="candidate1">A</span></button>
+            <button id="removeb">Remove <span class="candidate2">B</span></button>
+          </div>
+        </div>
         <aside class="stats_bar">
           <div>
             <h2>About Hogwarts</h2>
