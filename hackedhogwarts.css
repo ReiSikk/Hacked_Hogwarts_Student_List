@@ -219,7 +219,7 @@ button:hover {
 .student_grid {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
 }
 main {
@@ -229,16 +229,26 @@ main {
   padding-left: var(--spacing-small);
   padding-right: var(--spacing-small);
 }
+@media only screen and (max-width: 560px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+  .side_bar {
+    position: relative;
+    width: 100%;
+    border-radius: 20px;
+  }
+  .stats_bar {
+    position: relative;
+    width: 100%;
+    border-radius: 20px;
+  }
+}
 section {
   width: 100%;
   margin: auto;
 }
-@media only screen and (max-width: 899px) {
-  .student_grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-}
+
 /* **MAIN GRID ENDS */
 
 /* *** STUDENT CARD STARTS ***** */
@@ -248,7 +258,7 @@ section {
   padding-top: var(--spacing-xsmall);
   padding-bottom: var(--spacing-medium);
   border: solid 2px black;
-  border-radius: 8%;
+  border-radius: 20px;
 }
 /* .card_wrapper:hover {
   scale: 1.02;

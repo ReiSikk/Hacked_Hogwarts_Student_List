@@ -132,7 +132,7 @@ function prepareStudentData(jsonObject) {
 
   //Single Student image
   if (!fullname.includes(" ")) {
-    image = `no image`;
+    image = `./imagesHogwarts/userIcon.png`;
 
     //sorting images for students with the same last name - Patil
   } else if (fullname.toLowerCase().includes("patil")) {
@@ -224,7 +224,8 @@ function filterList(filteredList) {
     filteredList = allStudents.filter(filterByGirls);
   }
   if (settings.filterBy === "expelled") {
-    filteredList = allStudents.filter(isExpelled);
+    filteredList = expelledStudents.filter(isExpelled);
+    console.log(settings.filterBy);
   }
   if (settings.filterBy === "notexpelled") {
     filteredList = allStudents.filter(isNotExpelled);
