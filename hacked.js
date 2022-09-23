@@ -356,6 +356,7 @@ function displayStudentList(students) {
   document.querySelector("[data-filter='gryffindorstats']").textContent = `Gryffindor: ${
     allStudents.filter(isGryffindor).length
   } Students`;
+
   document.querySelector(
     "[data-filter='expelled-stats']"
   ).textContent = `Expelled: ${expelledStudents.length} Students`;
@@ -380,6 +381,7 @@ function displayStudent(singleStudent) {
   clone.querySelector("#last_name").textContent = `Last name: ${singleStudent.lastname}`;
   clone.querySelector("#gender").textContent = `Gender: ${singleStudent.gender}`;
   clone.querySelector("#prefect").textContent = `Prefect: ${singleStudent.prefect}`;
+
   if (singleStudent.prefect === true) {
     clone.querySelector("#prefect[data-prefect='false']").dataset.prefect = true;
     //clone.querySelector(".card_wrapper").style.backgroundImage = `var(--crest-${singleStudent.house.toLowerCase()})`;
@@ -416,12 +418,12 @@ function openModal(singleStudent) {
   document.querySelector(".blood_type span").textContent = `${singleStudent.bloodLine}`;
   document.querySelector(".image").src = singleStudent.image;
   document.querySelector(".image").alt = `${singleStudent.firstname} ${singleStudent.lastname}`;
+  document.querySelector("#prefect_button").addEventListener("click", clickPrefect);
   if (singleStudent.prefect === true) {
     document.querySelector("#prefect_button").textContent = "Revoke prefect status";
   }
   document.querySelectorAll("#expell").forEach((button) => button.addEventListener("click", expellStudent));
   document.querySelector(".closebutton").addEventListener("click", closeModal);
-  document.querySelector("[data-field=prefect]").addEventListener("click", clickPrefect);
   document.querySelector("#student_info").classList.remove("hide");
   function expellStudent() {
     if (singleStudent.expelled === false) {
@@ -438,11 +440,13 @@ function openModal(singleStudent) {
   }
   function removeStudent(singleStudent) {
     console.log("removeStudent");
-    //const expelledStudentIndex = allStudents.indexOf(singleStudent);
+    //const expelledStudentIndex = prefectArray.indexOf(singleStudent);
     const expelled = expelledStudents.push(singleStudent);
+
     //console.log("The expelled students array: ", expelledStudents);
     //console.log(`The expelled student is ${singleStudent.fullname}`);
     allStudents = allStudents.filter(isNotExpelled);
+
     //console.log(`Nr of all students is: ${allStudents.length}`);
     buildList();
     //console.log("The remaining students are", allStudents);
@@ -460,17 +464,16 @@ function openModal(singleStudent) {
 }
 //make student a prefect
 function tryToMakePrefect(prefectCandidate) {
-  //console.log("tryToMakePrefect");
+  console.log("tryToMakePrefect");
   //filter of all prefects
   const prefects = allStudents.filter((singleStudent) => singleStudent.prefect);
   // all the prefects where the house is the same as the selected prefect (array object)
   const other = prefects.filter((singleStudent) => singleStudent.house === prefectCandidate.house);
-  //console.log("The other is ", other);
   //nr of prefects
   const nrOfPrefects = other.length;
   // if there is another student of the same house
-  if (other !== undefined && nrOfPrefects >= 2) {
-    removeAorB(prefects[0], prefects[1]);
+  if (nrOfPrefects >= 2) {
+    removeAorB(other[0], other[1]);
   } else {
     makePrefect(prefectCandidate);
   }
@@ -511,23 +514,25 @@ function tryToMakePrefect(prefectCandidate) {
       //console.log("prefects after clickremoveB are", prefects);
     }
     function removePrefect(studentPrefect) {
-      //(console.log("removePrefect called", studentPrefect);
+      console.log("removePrefect called", studentPrefect);
+      /* const studentToBeExpelled = prefectArray.indexOf(studentPrefect);
+      prefectArray.splice(studentToBeExpelled, 1);
+      console.log(studentToBeExpelled); */
       studentPrefect.prefect = false;
-      const studentToBeRemoved = prefectArray.indexOf(studentPrefect);
-      prefectArray.splice(studentToBeRemoved, 1);
       //prefectArray.splice();
 
       //console.log(prefectArray, "after removePrefect is called");
     }
   }
   function makePrefect(singleStudent) {
+    console.log("makePrefect called");
+    console.log(singleStudent);
     if (singleStudent.expelled === false) {
       singleStudent.prefect = true;
       const prefect = prefectArray.push(singleStudent);
     } else {
       alert("Not possible to set expelled student as prefect!");
     }
-
     //console.log(`This ${singleStudent.fullname} is now a prefect: ${singleStudent.prefect}`);
   }
 }
