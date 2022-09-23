@@ -21,6 +21,16 @@
   /* font fam */
   --font-family-primary: "Karla", serif;
   --font-family-secondary: "General Sans", sans-serif;
+  /* house crests */
+  --crest-gryffindor: url("./imagesHogwarts/gryffindor-logo.png");
+  --crest-slytherin: url("./imagesHogwarts/slytherin-logo.png");
+  --crest-hufflepuff: url("./imagesHogwarts/hufflepuff-logo.png");
+  --crest-ravenclaw: url("./imagesHogwarts/ravenclaw-logo.png");
+  /* house colors */
+  --gryffindor: #d3a625;
+  --slytherin: #2a623d;
+  --hufflepuff: #ffed86;
+  --ravenclaw: #222f5b;
 }
 
 * {
@@ -278,6 +288,21 @@ section {
 /* ***STUDENT CARD ENDS */
 
 /* ***POP UP MODAL BEGINS */
+[data-prefect="true"] {
+  position: relative;
+}
+[data-prefect="true"]::after {
+  position: absolute;
+  content: "";
+  left: 100%;
+  width: 3.5rem;
+  height: 3.5rem;
+  transform: translate(-100%, 0);
+  background: url("./imagesHogwarts/prefect-logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
 .is_expelled {
   background-image: url(/imagesHogwarts/placekitty.jpeg);
   background-size: 100%;

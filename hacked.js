@@ -8,6 +8,7 @@ window.addEventListener("DOMContentLoaded", start);
 
 let allStudents = [];
 let expelledStudents = [];
+let prefectArray = [];
 
 const settings = {
   filterBy: "all",
@@ -37,7 +38,6 @@ async function start() {
   console.log("start");
   loadJSON();
   registerButtons();
-  //buildList();
 }
 
 function registerButtons() {
@@ -53,8 +53,10 @@ function registerButtons() {
 async function loadJSON() {
   const response = await fetch(url);
   const jsonData = await response.json();
+  //console.log("jsonData loaded");
   const response2 = await fetch(bloodUrl);
   const bloodData = await response2.json();
+  //console.log("bloodData loaded");
 
   settings.blood = bloodData;
   // when loaded, prepare data objects
@@ -187,7 +189,7 @@ function findBloodType(lastname) {
 
 function selectFilter(event) {
   const filter = event.target.dataset.filter;
-  //console.log(`User selected: ${filter}`);
+  console.log(`User selected: ${filter}`);
   setFilter(filter);
 }
 function setFilter(filter) {
@@ -229,7 +231,7 @@ function filterList(filteredList) {
   if (settings.filterBy === "notexpelled") {
     filteredList = allStudents.filter(isNotExpelled);
   }
-  if (settings.filterBy === "prefects") {
+  if (settings.filterBy === "prefect") {
     filteredList = allStudents.filter(isPrefect);
   }
   return filteredList;
@@ -291,7 +293,7 @@ function sortList(sortedList) {
 }
 
 function buildList() {
-  //console.log("buildList called");
+  console.log("buildList called");
   const currentList = filterList(allStudents);
   /* console.log(currentList); */
   const sortedList = sortList(currentList);
@@ -360,6 +362,7 @@ function displayStudentList(students) {
   document.querySelector(
     "[data-filter='notexpelled-stats']"
   ).textContent = `Not expelled: ${allStudents.length} Students`;
+  document.querySelector("[data-filter='prefect-stats']").textContent = `Prefects: ${prefectArray.length} Students`;
   //build a new list
   students.forEach(displayStudent);
 }
@@ -376,6 +379,11 @@ function displayStudent(singleStudent) {
   //clone.querySelector("#nick_name").textContent = `Nick name: ${singleStudent.nickname}`;
   clone.querySelector("#last_name").textContent = `Last name: ${singleStudent.lastname}`;
   clone.querySelector("#gender").textContent = `Gender: ${singleStudent.gender}`;
+  clone.querySelector("#prefect").textContent = `Prefect: ${singleStudent.prefect}`;
+  if (singleStudent.prefect === true) {
+    clone.querySelector("#prefect[data-prefect='false']").dataset.prefect = true;
+    //clone.querySelector(".card_wrapper").style.backgroundImage = `var(--crest-${singleStudent.house.toLowerCase()})`;
+  }
   //clone.querySelector("#house").textContent = `House: ${singleStudent.house}`;
   //clone.querySelector("#blood_type span").textContent = `${singleStudent.bloodLine}`;
 
@@ -408,13 +416,12 @@ function openModal(singleStudent) {
   document.querySelector(".blood_type span").textContent = `${singleStudent.bloodLine}`;
   document.querySelector(".image").src = singleStudent.image;
   document.querySelector(".image").alt = `${singleStudent.firstname} ${singleStudent.lastname}`;
+  if (singleStudent.prefect === true) {
+    document.querySelector("#prefect_button").textContent = "Revoke prefect status";
+  }
   document.querySelectorAll("#expell").forEach((button) => button.addEventListener("click", expellStudent));
   document.querySelector(".closebutton").addEventListener("click", closeModal);
   document.querySelector("[data-field=prefect]").addEventListener("click", clickPrefect);
-  if (singleStudent.prefect === true) {
-    document.querySelector("[data-prefect='false']").dataset.prefect = true;
-    document.querySelector("[data-filter='prefect']").textContent = "Revoke prefect status";
-  }
   document.querySelector("#student_info").classList.remove("hide");
   function expellStudent() {
     if (singleStudent.expelled === false) {
@@ -442,7 +449,7 @@ function openModal(singleStudent) {
   }
   //check if student is prefect or not
   function clickPrefect(event) {
-    console.log("clickPrefect called");
+    //console.log("clickPrefect called");
     if (singleStudent.prefect === true) {
       singleStudent.prefect = false;
     } else {
@@ -453,17 +460,16 @@ function openModal(singleStudent) {
 }
 //make student a prefect
 function tryToMakePrefect(prefectCandidate) {
-  console.log("tryToMakePrefect");
+  //console.log("tryToMakePrefect");
   //filter of all prefects
   const prefects = allStudents.filter((singleStudent) => singleStudent.prefect);
-
   // all the prefects where the house is the same as the selected prefect (array object)
   const other = prefects.filter((singleStudent) => singleStudent.house === prefectCandidate.house);
+  //console.log("The other is ", other);
   //nr of prefects
   const nrOfPrefects = other.length;
   // if there is another student of the same house
   if (other !== undefined && nrOfPrefects >= 2) {
-    console.log("there can only be two prefects per house");
     removeAorB(prefects[0], prefects[1]);
   } else {
     makePrefect(prefectCandidate);
@@ -488,13 +494,12 @@ function tryToMakePrefect(prefectCandidate) {
     }
     // if remove A
     function clickRemoveA() {
-      console.log(prefectA);
+      //console.log(prefectA);
       removePrefect(prefectA);
+      //console.log(prefectA, " is not a prefect anymore");
       makePrefect(prefectCandidate);
       buildList();
       closeDialog();
-      console.log("click A is not a prefect anymore");
-      console.log("prefects after clickremoveA are", prefects);
     }
     // if remove B
     function clickRemoveB() {
@@ -502,30 +507,35 @@ function tryToMakePrefect(prefectCandidate) {
       makePrefect(prefectCandidate);
       buildList();
       closeDialog();
-      console.log("click B is not a prefect anymore");
-      console.log("prefects after clickremoveB are", prefects);
+      //console.log("click B is not a prefect anymore");
+      //console.log("prefects after clickremoveB are", prefects);
     }
     function removePrefect(studentPrefect) {
-      console.log("removePrefect called");
-      studentPrefect.prefect === false;
-      console.log(prefects);
+      //(console.log("removePrefect called", studentPrefect);
+      studentPrefect.prefect = false;
+      const studentToBeRemoved = prefectArray.indexOf(studentPrefect);
+      prefectArray.splice(studentToBeRemoved, 1);
+      //prefectArray.splice();
+
+      //console.log(prefectArray, "after removePrefect is called");
     }
   }
   function makePrefect(singleStudent) {
-    console.log(singleStudent);
-    console.log("makeprefect called");
-    singleStudent.prefect = true;
-    console.log("This student is now a prefect: ", singleStudent.prefect);
-  }
+    if (singleStudent.expelled === false) {
+      singleStudent.prefect = true;
+      const prefect = prefectArray.push(singleStudent);
+    } else {
+      alert("Not possible to set expelled student as prefect!");
+    }
 
-  console.log("The prefects are: ", prefects);
+    //console.log(`This ${singleStudent.fullname} is now a prefect: ${singleStudent.prefect}`);
+  }
 }
 function clickModal(singleStudent) {
   console.log("openModal");
   document.querySelector(".closebutton").addEventListener("click", closeModal);
   document.querySelector("#student_info").classList.remove("hide");
 }
-
 function closeModal() {
   console.log("closemodal called");
   document.querySelector("#student_info").classList.add("hide");

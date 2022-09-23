@@ -58,7 +58,7 @@
                   Half Blood
                 </button>
                 <button class="fs_small" data-action="filter" data-filter="allblood" data-filter-type="blood">
-                  All
+                  Muggle
                 </button>
               </div>
             </div>
@@ -105,6 +105,7 @@
                   <li id="nick_name"><span>Nick name: </span></li> -->
                   <li id="last_name"><span>Last name: </span></li>
                   <li id="gender"><span>Gender: </span></li>
+                  <li data-prefect="false" id="prefect"><span>Prefect: </span></li>
                   <!--  <li id="house"><span>House: </span></li> -->
                   <!--  <li id="blood_type">Bloodtype: <span></span></li> -->
                 </ul>
@@ -113,6 +114,7 @@
                   <div class="student_modal">
                     <button class="closebutton">X</button>
                     <h1 class="full_name">Fullname</h1>
+                    <div id="house_crest"></div>
                     <img src="" alt="" class="image" />
                     <ul>
                       <li class="first_name"><span>First Name: </span></li>
@@ -123,7 +125,7 @@
                       <li class="house"><span>House: </span></li>
                       <li class="blood_type">Bloodtype: <span></span></li>
                     </ul>
-                    <button data-action="choice" data-prefect="false" data-field="prefect">Make a prefect</button>
+                    <button id="prefect_button" data-action="choice" data-field="prefect">Make a prefect</button>
                     <button id="make_inquisitor">Add to Inq. Squad</button>
                     <button id="expell">Expell student</button>
                   </div>
@@ -167,6 +169,7 @@
               <ul>
                 <li data-filter-type="students_stats" data-filter="notexpelled-stats">Not expelled:</li>
                 <li data-filter-type="students_stats" data-filter="expelled-stats">Expelled:</li>
+                <li data-filter-type="students_stats" data-filter="prefect-stats">Prefects:</li>
               </ul>
             </div>
           </div>
