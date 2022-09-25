@@ -445,6 +445,10 @@ function openModal(singleStudent) {
   document.querySelector(".modal_house_crest").src = `./imagesHogwarts/${singleStudent.house.toLowerCase()}-logo.png`;
   document.querySelector(".modal_house_crest").alt = `${singleStudent.house}`;
 
+  if (singleStudent.prefect === true) {
+    document.querySelector("#modal_prefect[data-prefect='false']").dataset.prefect = true;
+  }
+
   //house colors and styling
   if (singleStudent.house === "Slytherin") {
     document.querySelector(".student_modal").style.borderColor = "var(--slytherin)";
@@ -486,7 +490,7 @@ function openModal(singleStudent) {
     settings.choice = choice;
     if (settings.choice === "expel_student") {
       expellStudent(singleStudent);
-      buildList();
+      expellAnimation();
     } else if (settings.choice === "add_inquisitorial") {
       makeInquisitor(singleStudent);
       buildList();
@@ -537,6 +541,9 @@ function openModal(singleStudent) {
       document.querySelector("#expell").removeEventListener("click", expellStudent);
       //call remove student with the selected student as param
       removeStudent(singleStudent);
+      setTimeout(() => {
+        buildList();
+      }, 1500);
     }
   }
   function removeStudent(singleStudent) {
@@ -647,7 +654,7 @@ function tryToMakePrefect(prefectCandidate) {
     //console.log(singleStudent);
     if (singleStudent.expelled === false) {
       singleStudent.prefect = true;
-      const prefect = prefectArray.push(singleStudent);
+      prefectArray.push(singleStudent);
     } else {
       alert("Not possible to set expelled student as prefect!");
     }
@@ -658,4 +665,11 @@ function clickModal(singleStudent) {
   console.log("openModal");
   document.querySelector(".closebutton").addEventListener("click", closeModal);
   document.querySelector("#student_info").classList.remove("hide");
+}
+function expellAnimation() {
+  console.log("expellAnimation called");
+  document.querySelector(".expellmodal").classList.remove("hide");
+  document.querySelector(".expell_message").classList.remove("hide");
+  const expellBtn = document.querySelector("#expell");
+  const slideout = document.querySelector(".expelled");
 }

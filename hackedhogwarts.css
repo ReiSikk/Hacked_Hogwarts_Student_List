@@ -381,11 +381,7 @@ section {
   background-repeat: no-repeat;
   z-index: 0;
 }
-.is_expelled {
-  background-image: url(/imagesHogwarts/placekitty.jpeg);
-  background-size: 100%;
-  z-index: 100;
-}
+
 .hide {
   visibility: hidden;
 }
@@ -428,12 +424,15 @@ button.closebutton {
 #modal_buttons {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  width: 100%;
 }
 #modal_buttons button {
   font-family: var(--font-family-primary);
   font-weight: 600;
   padding: 0.2rem;
   margin: 0.25em;
+  width: 100%;
 }
 @media only screen and (max-width: 469px) {
   #modal_buttons {
@@ -447,6 +446,11 @@ button.closebutton {
     margin: 0.3rem;
   }
 }
+.modal_prefect_wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
 /* ***POP UP MODAL ENDS */ /* ****** REMOVE A OR B POP UP */
 .dialog {
   max-width: 66vw;
@@ -468,6 +472,76 @@ button.closebutton {
   margin: 0.25em;
 }
 /* *** REMOVE A OR B POP UP ENDS */
+
+/*********** Expell animation *************/
+.expellmodal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.expell_message {
+  max-width: 66vw;
+  min-width: 50vw;
+  box-shadow: (1px 1px 10px #333);
+  border-radius: 12px;
+  padding: 2em;
+  background-color: white;
+  position: relative;
+  border: 3px solid red;
+  z-index: 200;
+  color: red;
+}
+.visible {
+  animation: movein 0.5s ease forwards, moveout 0.5s 3s ease forwards;
+}
+
+@keyframes movein {
+  from {
+    left: -20px;
+  }
+  to {
+    left: 100px;
+  }
+}
+
+@keyframes moveout {
+  from {
+    left: 100px;
+  }
+  to {
+    left: -20px;
+  }
+}
+
+/*#notif {
+  left: 10px;
+  opacity: 0;
+}*/
+
+@keyframes movein {
+  from {
+    left: -200px;
+  }
+  to {
+    left: 10px;
+  }
+}
+
+@keyframes moveout {
+  from {
+    left: 10px;
+  }
+  to {
+    left: -200px;
+  }
+}
 
 @keyframes hover {
   from {
