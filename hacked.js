@@ -382,7 +382,6 @@ function displayStudent(singleStudent) {
   const template = document.querySelector("#template").content;
   // create clone
   const clone = template.cloneNode(true);
-
   // set clone data
   clone.querySelector("#full_name").textContent = `${singleStudent.fullname}`;
   clone.querySelector("#first_name").textContent = `First name: ${singleStudent.firstname}`;
@@ -392,7 +391,24 @@ function displayStudent(singleStudent) {
   clone.querySelector("#gender").textContent = `Gender: ${singleStudent.gender}`;
   clone.querySelector("#prefect").textContent = `Prefect: ${singleStudent.prefect}`;
   clone.querySelector("#inquisitor").textContent = `Inquisitorial Squad: ${singleStudent.inqSquad}`;
-
+  clone.querySelector(".house_crest").src = `./imagesHogwarts/${singleStudent.house.toLowerCase()}-logo.png`;
+  clone.querySelector(".house_crest").alt = `${singleStudent.house}`;
+  if (singleStudent.house === "Slytherin") {
+    clone.querySelector(".card_wrapper").style.borderColor = "var(--slytherin)";
+    clone.querySelector(".house_crest").classList.add("slytherin");
+  }
+  if (singleStudent.house === "Gryffindor") {
+    clone.querySelector(".card_wrapper").style.borderColor = "var(--gryffindor)";
+    clone.querySelector(".house_crest").classList.add("gryffindor");
+  }
+  if (singleStudent.house === "Hufflepuff") {
+    clone.querySelector(".card_wrapper").style.borderColor = "var(--hufflepuff)";
+    clone.querySelector(".house_crest").classList.add("hufflepuff");
+  }
+  if (singleStudent.house === "Ravenclaw") {
+    clone.querySelector(".card_wrapper").style.borderColor = "var(--ravenclaw)";
+    clone.querySelector(".house_crest").classList.add("ravenclaw");
+  }
   if (singleStudent.prefect === true) {
     clone.querySelector("#prefect[data-prefect='false']").dataset.prefect = true;
   }
@@ -426,7 +442,6 @@ function openModal(singleStudent) {
   document.querySelector(".blood_type span").textContent = `${singleStudent.bloodLine}`;
   document.querySelector(".image").src = singleStudent.image;
   document.querySelector(".image").alt = `${singleStudent.firstname} ${singleStudent.lastname}`;
-  //document.querySelector(".card_wrapper").style.backgroundImage = `var(--crest-${singleStudent.house.toLowerCase()})`;
   //event listeners for buttons
   document
     .querySelectorAll("[data-action='choice']")

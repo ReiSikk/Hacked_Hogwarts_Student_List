@@ -21,11 +21,7 @@
   /* font fam */
   --font-family-primary: "Karla", serif;
   --font-family-secondary: "General Sans", sans-serif;
-  /* house crests */
-  --crest-gryffindor: url("./imagesHogwarts/gryffindor-logo.png");
-  --crest-slytherin: url("./imagesHogwarts/slytherin-logo.png");
-  --crest-hufflepuff: url("./imagesHogwarts/hufflepuff-logo.png");
-  --crest-ravenclaw: url("./imagesHogwarts/ravenclaw-logo.png");
+
   /* house colors */
   --gryffindor: #d3a625;
   --slytherin: #2a623d;
@@ -37,6 +33,10 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+html {
+  font-size: 100%;
+  scroll-behavior: smooth;
 }
 .main_wrapper {
   max-width: 1440px;
@@ -60,9 +60,14 @@
 }
 body {
   font-size: 0.9rem;
-  background-color: #fbecc4;
+  /* resulting css */
+  /* hack the css function */
+  /*   filter: contrast(170%) brightness(1000%);
+  background: linear-gradient(360deg, rgba(232, 128, 127, 1), rgba(230, 200, 79, 1)), url(/👆/that/noise.svg); */
+  background: linear-gradient(270deg, rgba(255, 166, 158, 1), rgba(167, 29, 49, 1));
   font-family: var(--font-family_primary);
   overflow-x: hidden;
+  width: 100%;
 }
 h3 {
   font-family: var(--font-family-secondary);
@@ -266,9 +271,10 @@ section {
   padding-left: var(--spacing-xsmall);
   padding-right: var(--spacing-xsmall);
   padding-top: var(--spacing-xsmall);
-  padding-bottom: var(--spacing-medium);
-  border: solid 2px black;
+  padding-bottom: var(--spacing-small);
+  border: solid 2.5px black;
   border-radius: 20px;
+  height: 100%;
 }
 /* .card_wrapper:hover {
   scale: 1.02;
@@ -284,7 +290,34 @@ section {
   font-family: var(--font-family-primary);
   font-weight: 600;
 }
-
+.slytherin {
+  width: 100%;
+}
+.hufflepuff {
+  width: 50%;
+}
+.gryffindor {
+  width: 50%;
+}
+.ravenclaw {
+  width: 50%;
+}
+.crest_wrapper {
+  display: flex;
+  justify-content: center;
+}
+#open_popup {
+  font-family: var(--font-family-primary);
+  font-weight: 600;
+  padding: 0.5rem;
+  margin: 0.25em;
+  width: 66%;
+  justify-content: center;
+}
+.more_info_wrapper {
+  display: flex;
+  justify-content: center;
+}
 /* ***STUDENT CARD ENDS */
 
 /* ***POP UP MODAL BEGINS */
@@ -294,7 +327,8 @@ section {
 [data-prefect="true"]::after {
   position: absolute;
   content: "";
-  left: 100%;
+  top: -600%;
+  left: 75%;
   width: 3.5rem;
   height: 3.5rem;
   transform: translate(-100%, 0);
@@ -346,7 +380,49 @@ button.closebutton {
 .student_modal h1 {
   margin-top: 0;
 }
-/* ***POP UP MODAL ENDS */
+#modal_buttons {
+  display: flex;
+  flex-direction: row;
+}
+#modal_buttons button {
+  font-family: var(--font-family-primary);
+  font-weight: 600;
+  padding: 0.2rem;
+  margin: 0.25em;
+}
+@media only screen and (max-width: 469px) {
+  #modal_buttons {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+  }
+  #modal_buttons button {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.3rem;
+  }
+}
+/* ***POP UP MODAL ENDS */ /* ****** REMOVE A OR B POP UP */
+.dialog {
+  max-width: 66vw;
+  min-width: 50vw;
+  box-shadow: (1px 1px 10px #333);
+  border-radius: 12px;
+  padding: 2em;
+  background-color: rgb(255, 217, 46);
+  position: relative;
+}
+.dialog h1 {
+  padding-bottom: var(--spacing-small);
+}
+#removea,
+#removeb {
+  font-family: var(--font-family-primary);
+  font-weight: 600;
+  padding: 0.2rem;
+  margin: 0.25em;
+}
+/* *** REMOVE A OR B POP UP ENDS */
 
 @keyframes hover {
   from {
