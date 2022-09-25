@@ -106,6 +106,7 @@
                   <li id="last_name"><span>Last name: </span></li>
                   <li id="gender"><span>Gender: </span></li>
                   <li data-prefect="false" id="prefect"><span>Prefect: </span></li>
+                  <li id="inquisitor"><span>Inquisitorial squad: </span></li>
                   <!--  <li id="house"><span>House: </span></li> -->
                   <!--  <li id="blood_type">Bloodtype: <span></span></li> -->
                 </ul>
@@ -125,9 +126,20 @@
                       <li class="house"><span>House: </span></li>
                       <li class="blood_type">Bloodtype: <span></span></li>
                     </ul>
-                    <button id="prefect_button" data-action="choice" data-field="prefect">Make a prefect</button>
-                    <button id="make_inquisitor">Add to Inq. Squad</button>
-                    <button id="expell">Expell student</button>
+                    <button id="prefect_button" data-action="choice" data-field="make_prefect" data-prefect="false">
+                      Make a prefect
+                    </button>
+                    <button
+                      data-action="choice"
+                      data-field="add_inquisitorial"
+                      data-inquisitorial="false"
+                      id="make_inquisitor"
+                    >
+                      Add to Inq. Squad
+                    </button>
+                    <button data-action="choice" data-field="expel_student" data-expelled="false" id="expell">
+                      Expell student
+                    </button>
                   </div>
                 </div>
                 <button id="open_popup">More info</button>
@@ -170,6 +182,7 @@
                 <li data-filter-type="students_stats" data-filter="notexpelled-stats">Not expelled:</li>
                 <li data-filter-type="students_stats" data-filter="expelled-stats">Expelled:</li>
                 <li data-filter-type="students_stats" data-filter="prefect-stats">Prefects:</li>
+                <li data-filter-type="students_stats" data-filter="inquisitor-stats">inquisitors:</li>
               </ul>
             </div>
           </div>
