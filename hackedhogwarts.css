@@ -19,7 +19,7 @@
   --spacing-xxlarge: 6.854rem;
   --spacing-xxxlarge: 11.089rem;
   /* font fam */
-  --font-family-primary: "Karla", serif;
+  --font-family-primary: "Boska", serif;
   --font-family-secondary: "General Sans", sans-serif;
 
   /* house colors */
@@ -68,6 +68,7 @@ body {
   font-family: var(--font-family_primary);
   overflow-x: hidden;
   width: 100%;
+  color: #000;
 }
 h3 {
   font-family: var(--font-family-secondary);
@@ -93,10 +94,11 @@ header {
   padding-bottom: var(--spacing-medium);
 }
 button:hover {
-  /* animation-name: hover;
-  animation-duration: 0.2s; */
-  scale: 1.05;
-  transition: 0.25s all;
+  color: #000;
+  transform: translateX(1.5px);
+  cursor: pointer;
+  scale: 1.025;
+  transition: 0.2s all ease-in-out;
   box-shadow: 1px 2px 6px black;
 }
 
@@ -141,12 +143,13 @@ button:hover {
   display: flex;
   flex-direction: column;
   padding: var(--spacing-small);
-  background-color: #d9d9d9;
+  background: linear-gradient(360deg, rgba(184, 198, 219, 1), rgba(245, 247, 250, 1));
   width: fit-content;
   height: fit-content;
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
+  border-radius: 12px;
 }
 .side_bar div:first-of-type {
   width: fit-content;
@@ -181,6 +184,12 @@ button:hover {
 .sort_bar button.sortby[data-sort-direction="desc"]::after {
   content: "⇑";
 }
+.sort_bar span {
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-small);
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
 
 /* ********* Left ASIDE ends******** */
 
@@ -189,13 +198,14 @@ button:hover {
   display: flex;
   flex-direction: column;
   padding: var(--spacing-small);
-  background-color: #d9d9d9;
+  background: linear-gradient(360deg, rgba(184, 198, 219, 1), rgba(245, 247, 250, 1));
   width: fit-content;
   justify-self: right;
   height: fit-content;
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
+  border-radius: 12px;
 }
 .stats_bar div:first-of-type {
   width: fit-content;
@@ -225,6 +235,18 @@ button:hover {
 }
 .search_bar {
   padding: 0.25em;
+  text-align: center;
+}
+.search_wrapper label {
+  font-family: var(--font-family-secondary);
+  font-weight: 600;
+  font-size: var(--font-xsmall);
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+.search_wrapper {
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
 
@@ -279,7 +301,7 @@ section {
 /* .card_wrapper:hover {
   scale: 1.02;
   transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-  box-shadow: 1.5px 7.5px 8px rgba(0, 0, 0, 0.6);
+  box-shadow: 4px 10px 8px rgba(0, 0, 0, 0.6);
 } */
 .student_details {
   font-family: var(--font-family-secondary);
@@ -293,16 +315,38 @@ section {
 .slytherin {
   width: 100%;
 }
+.slytherin_modal {
+  min-width: 50%;
+  max-width: 55%;
+}
 .hufflepuff {
   width: 50%;
+}
+.hufflepuff_modal {
+  max-width: 35%;
+  min-width: 30%;
 }
 .gryffindor {
   width: 50%;
 }
+.gryffindor_modal {
+  max-width: 35%;
+  min-width: 30%;
+}
 .ravenclaw {
   width: 50%;
 }
+.ravenclaw_modal {
+  max-width: 30%;
+  min-width: 25%;
+}
 .crest_wrapper {
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-xsmall);
+}
+.modal_crest_wrapper {
+  padding: var(--spacing-xsmall);
   display: flex;
   justify-content: center;
 }
@@ -368,6 +412,7 @@ section {
   padding: 2em;
   background-color: white;
   position: relative;
+  border: 5px solid green;
 }
 button.closebutton {
   position: absolute;

@@ -442,6 +442,36 @@ function openModal(singleStudent) {
   document.querySelector(".blood_type span").textContent = `${singleStudent.bloodLine}`;
   document.querySelector(".image").src = singleStudent.image;
   document.querySelector(".image").alt = `${singleStudent.firstname} ${singleStudent.lastname}`;
+  document.querySelector(".modal_house_crest").src = `./imagesHogwarts/${singleStudent.house.toLowerCase()}-logo.png`;
+  document.querySelector(".modal_house_crest").alt = `${singleStudent.house}`;
+
+  //house colors and styling
+  if (singleStudent.house === "Slytherin") {
+    document.querySelector(".student_modal").style.borderColor = "var(--slytherin)";
+    document.querySelector(".student_modal").style.backgroundColor = "var(--slytherin)";
+    document.querySelector(".student_modal").style.color = "#fff";
+    document.querySelector(".student_modal").style.boxShadow = "2px 4px 10px var(--slytherin)";
+    document.querySelector(".modal_house_crest").classList.add("slytherin_modal");
+  }
+  if (singleStudent.house === "Gryffindor") {
+    document.querySelector(".student_modal").style.borderColor = "var(--gryffindor)";
+    document.querySelector(".student_modal").style.backgroundColor = "var(--gryffindor)";
+    document.querySelector(".student_modal").style.boxShadow = "2px 4px 10px var(--gryffindor)";
+    document.querySelector(".modal_house_crest").classList.add("gryffindor_modal");
+  }
+  if (singleStudent.house === "Hufflepuff") {
+    document.querySelector(".student_modal").style.borderColor = "var(--hufflepuff)";
+    document.querySelector(".student_modal").style.backgroundColor = "var(--hufflepuff)";
+    document.querySelector(".student_modal").style.boxShadow = "2px 4px 10px var(--hufflepuff)";
+    document.querySelector(".modal_house_crest").classList.add("hufflepuff_modal");
+  }
+  if (singleStudent.house === "Ravenclaw") {
+    document.querySelector(".student_modal").style.borderColor = "var(--ravenclaw)";
+    document.querySelector(".student_modal").style.backgroundColor = "var(--ravenclaw)";
+    document.querySelector(".student_modal").style.color = "#fff";
+    document.querySelector(".student_modal").style.boxShadow = "2px 4px 10px var(--ravenclaw)";
+    document.querySelector(".modal_house_crest").classList.add("ravenclaw_modal");
+  }
   //event listeners for buttons
   document
     .querySelectorAll("[data-action='choice']")
