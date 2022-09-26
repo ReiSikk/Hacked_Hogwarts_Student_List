@@ -351,6 +351,7 @@ section {
   display: flex;
   justify-content: center;
 }
+
 #open_popup {
   font-family: var(--font-family-primary);
   font-weight: 600;
@@ -382,11 +383,21 @@ section {
   background-repeat: no-repeat;
   z-index: 0;
 }
+.inquisitor_image {
+  width: 3.5rem;
+}
+.prefect_badge {
+  width: 3.5rem;
+}
+.badge_wrapper {
+  display: flex;
+  gap: 0.5em;
+}
 
 .hide {
   visibility: hidden;
 }
-.display_none {
+.dis_none {
   display: none;
 }
 .modal {
@@ -575,4 +586,11 @@ button.closebutton {
   color: #fff;
   font-family: "Sharpie", sans-serif;
   font-size: 10rem;
+}
+
+footer {
+  padding-top: 2em;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }

@@ -409,8 +409,14 @@ function displayStudent(singleStudent) {
   //clone.querySelector("#nick_name").textContent = `Nick name: ${singleStudent.nickname}`;
   clone.querySelector("#last_name").textContent = `Last name: ${singleStudent.lastname}`;
   clone.querySelector("#gender").textContent = `Gender: ${singleStudent.gender}`;
-  clone.querySelector("#prefect").textContent = `Prefect: ${singleStudent.prefect}`;
-  clone.querySelector("#inquisitor").textContent = `Inquisitorial Squad: ${singleStudent.inqSquad}`;
+
+  //clone.querySelector("#prefect").textContent = `Prefect: ${singleStudent.prefect}`;
+  if (singleStudent.prefect === true) {
+    clone.querySelector("#prefect img").classList.remove("dis_none");
+  }
+  if (singleStudent.inqSquad === true) {
+    clone.querySelector("#inquisitor img").classList.remove("dis_none");
+  }
   clone.querySelector(".house_crest").src = `./imagesHogwarts/${singleStudent.house.toLowerCase()}-logo.png`;
   clone.querySelector(".house_crest").alt = `${singleStudent.house}`;
   if (singleStudent.house === "Slytherin") {
@@ -446,18 +452,18 @@ function displayStudent(singleStudent) {
     }
     if (singleStudent.bloodLine === "Pureblood") {
       //get a random number
-      const bloodIndex = Math.floor(Math.random() * 4);
+      const bloodIndex = Math.floor(Math.random() * 3);
       //assign each student a random number
       allStudents.forEach((el) => {
         singleStudent.randomBlood = bloodIndex;
       });
-      if (singleStudent.randomBlood === 1) {
+      if (singleStudent.randomBlood === 0) {
         singleStudent.bloodLine = "Pureblood";
       }
-      if (singleStudent.randomBlood === 2) {
+      if (singleStudent.randomBlood === 1) {
         singleStudent.bloodLine = "Halfblood";
       }
-      if (singleStudent.randomBlood === 3) {
+      if (singleStudent.randomBlood === 2) {
         singleStudent.bloodLine = "Muggle";
       }
       //console.log(`This ${singleStudent}'s bloodIndex is ${singleStudent.randomBlood}`);
@@ -625,7 +631,7 @@ function openModal(singleStudent) {
           inquisitorArray.push(singleStudent);
           setTimeout(() => {
             hackedRemoveInquisitor();
-          }, 200);
+          }, 1000);
         }
       } else {
         alert("This student can't be added to the inquisitorial squad");
@@ -644,6 +650,7 @@ function openModal(singleStudent) {
       console.log(singleStudent.inqSquad);
       inquisitorArray.splice(studentIndexWhileHacked, 1);
       buildList();
+      alert("Hehe this student has been removed from the Inquisitors");
     }
     //buildList();
   }

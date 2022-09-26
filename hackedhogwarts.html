@@ -102,14 +102,20 @@
               <div class="student_details">
                 <ul>
                   <li id="first_name"><span>First Name: </span></li>
-                  <!-- <li id="middle_name"><span>Middle name: </span></li>
-                  <li id="nick_name"><span>Nick name: </span></li> -->
                   <li id="last_name"><span>Last name: </span></li>
                   <li id="gender"><span>Gender: </span></li>
-                  <li data-prefect="false" id="prefect"><span>Prefect: </span></li>
-                  <li id="inquisitor"><span>Inquisitorial squad: </span></li>
-                  <!--  <li id="house"><span>House: </span></li> -->
-                  <!--  <li id="blood_type">Bloodtype: <span></span></li> -->
+                  <div class="badge_wrapper">
+                    <li data-prefect="false" id="prefect">
+                      <img class="dis_none prefect_badge" src="./imagesHogwarts/prefect-logo.png" alt="" />
+                    </li>
+                    <li id="inquisitor">
+                      <img
+                        class="dis_none inquisitor_image"
+                        src="./imagesHogwarts/inquisitor_badge.png"
+                        alt="inquisitor badge"
+                      />
+                    </li>
+                  </div>
                 </ul>
                 <div class="crest_wrapper">
                   <img class="house_crest" src="" alt="" />
@@ -217,6 +223,9 @@
         </aside>
       </main>
     </div>
+    <footer>
+      <p>This is a student project for KEA MMD 3rd semester Front-end Design elective</p>
+    </footer>
   </body>
   <script src="hacked.js"></script>
 </html>
