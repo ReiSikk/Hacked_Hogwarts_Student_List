@@ -69,6 +69,7 @@ body {
   overflow-x: hidden;
   width: 100%;
   color: #000;
+  padding-bottom: 2em;
 }
 h3 {
   font-family: var(--font-family-secondary);
@@ -550,4 +551,28 @@ button.closebutton {
   to {
     transform: scale(1.05);
   }
+}
+/* *******HACKING SCREEEN */
+.hack_dialog {
+  width: 90vw;
+  height: 90vh;
+  box-shadow: (1px 1px 10px #333);
+  border-radius: 12px;
+  padding: 2em;
+  /*   background: linear-gradient(270deg, rgba(44, 62, 80, 1), rgba(0, 0, 0, 1)); */
+  background-image: url("./imagesHogwarts/hacking.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  color: #fff;
+  z-index: 1000;
+  font-family: "Boska", serif;
+  font-size: var(--font-medium);
+}
+
+.hack_dialog h1 {
+  padding-bottom: var(--spacing-small);
+  color: #fff;
+  font-family: "Sharpie", sans-serif;
+  font-size: 10rem;
 }

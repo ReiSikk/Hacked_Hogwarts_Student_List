@@ -10,6 +10,8 @@ let allStudents = [];
 let expelledStudents = [];
 let prefectArray = [];
 let inquisitorArray = [];
+let sequence = [];
+let randomBloodArray = ["Muggle", "Halfblood", "Pureblood"];
 
 const settings = {
   filterBy: "all",
@@ -17,6 +19,11 @@ const settings = {
   sortDir: "asc",
   searchBy: "",
   blood: undefined,
+  wasHacked: false,
+  hackFlag1: false,
+  hackFlag2: false,
+  hackFlag3: false,
+  hackFlag4: false,
 };
 
 const Student = {
@@ -32,6 +39,19 @@ const Student = {
   bloodLine: "",
   inqSquad: false,
   prefect: false,
+  randomBlood: 0,
+};
+const Rei = {
+  fullname: "Rei Sikk",
+  firstname: "Rei",
+  lastname: "Sikk",
+  gender: "Boy",
+  image: "./imagesHogwarts/rei.png",
+  expelled: false,
+  bloodLine: "Pureblood",
+  inqSquad: false,
+  prefect: false,
+  house: "",
 };
 
 //* INITIALIZE
@@ -419,6 +439,35 @@ function displayStudent(singleStudent) {
   clone.querySelector("#image").alt = `${singleStudent.firstname} ${singleStudent.lastname}`;
   clone.querySelector("#open_popup").addEventListener("click", clickModal);
 
+  //HACKING IF's
+  if (settings.wasHacked === true) {
+    if (singleStudent.bloodLine === "Halfblood" || singleStudent.bloodLine === "Muggle") {
+      singleStudent.bloodLine = "Pureblood";
+    }
+    if (singleStudent.bloodLine === "Pureblood") {
+      //get a random number
+      const bloodIndex = Math.floor(Math.random() * 4);
+      //assign each student a random number
+      allStudents.forEach((el) => {
+        singleStudent.randomBlood = bloodIndex;
+      });
+      if (singleStudent.randomBlood === 1) {
+        singleStudent.bloodLine = "Pureblood";
+      }
+      if (singleStudent.randomBlood === 2) {
+        singleStudent.bloodLine = "Halfblood";
+      }
+      if (singleStudent.randomBlood === 3) {
+        singleStudent.bloodLine = "Muggle";
+      }
+      //console.log(`This ${singleStudent}'s bloodIndex is ${singleStudent.randomBlood}`);
+      console.log(singleStudent.bloodLine);
+
+      //assign each number an index from the randomblood array
+    }
+  }
+  //HACKING ENDS
+
   //DETAILS MODAL
   function clickModal() {
     openModal(singleStudent);
@@ -489,8 +538,12 @@ function openModal(singleStudent) {
     //store the choice
     settings.choice = choice;
     if (settings.choice === "expel_student") {
-      expellStudent(singleStudent);
-      expellAnimation();
+      if (singleStudent.firstname === "Rei") {
+        alert("Can't expell me hehe");
+      } else {
+        expellStudent(singleStudent);
+        expellAnimation();
+      }
     } else if (settings.choice === "add_inquisitorial") {
       makeInquisitor(singleStudent);
       buildList();
@@ -561,10 +614,19 @@ function openModal(singleStudent) {
         singleStudent.bloodLine === "Pureblood" &&
         singleStudent.expelled === false
       ) {
-        singleStudent.inqSquad = true;
-        const inquisitor = inquisitorArray.push(singleStudent);
-        console.log("This student is now an inqusitor: ", singleStudent.inqSquad);
-        console.log(inquisitorArray);
+        if (settings.wasHacked === false) {
+          singleStudent.inqSquad = true;
+          inquisitorArray.push(singleStudent);
+          console.log("This student is now an inqusitor: ", singleStudent.inqSquad);
+          console.log(inquisitorArray);
+        }
+        if (settings.wasHacked === true) {
+          singleStudent.inqSquad = true;
+          inquisitorArray.push(singleStudent);
+          setTimeout(() => {
+            hackedRemoveInquisitor();
+          }, 200);
+        }
       } else {
         alert("This student can't be added to the inquisitorial squad");
       }
@@ -574,6 +636,14 @@ function openModal(singleStudent) {
       singleStudent.inqSquad = false;
       inquisitorArray.splice(inquisitorIndex, 1);
       //console.log(inquisitorArray);
+    }
+    function hackedRemoveInquisitor() {
+      let studentIndexWhileHacked = inquisitorArray.indexOf(singleStudent);
+      //console.log(studentIndexWhileHacked);
+      singleStudent.inqSquad = false;
+      console.log(singleStudent.inqSquad);
+      inquisitorArray.splice(studentIndexWhileHacked, 1);
+      buildList();
     }
     //buildList();
   }
@@ -672,4 +742,77 @@ function expellAnimation() {
   document.querySelector(".expell_message").classList.remove("hide");
   const expellBtn = document.querySelector("#expell");
   const slideout = document.querySelector(".expelled");
+}
+
+//*********** ******** HACK THE SYSTEM ******* *********** */
+document.addEventListener("keyup", (event) => {
+  const key = event.key.toLowerCase();
+  //console.log(key);
+  if (key === "h") {
+    settings.hackFlag1 = true;
+  }
+  if (key === "a") {
+    settings.hackFlag2 = true;
+  }
+  if (key === "c") {
+    settings.hackFlag3 = true;
+  }
+  if (key === "k") {
+    settings.hackFlag4 = true;
+  }
+
+  // do something
+  if (
+    settings.hackFlag1 === true &&
+    settings.hackFlag2 === true &&
+    settings.hackFlag3 === true &&
+    settings.hackFlag4 === true
+  ) {
+    if (settings.wasHacked === false) {
+      hackTheSystem();
+    }
+  }
+});
+
+// add myself to the list
+function hackTheSystem() {
+  document.querySelector(".hack_audio").play();
+  settings.hackFlag1 = false;
+  settings.hackFlag2 = false;
+  settings.hackFlag3 = false;
+  settings.hackFlag4 = false;
+  settings.wasHacked = true;
+  console.log("hackTheSystem called");
+  const rei = Object.create(Student);
+  rei.fullname = "Rei Sikk";
+  rei.firstname = "Rei";
+  rei.lastname = "Sikk";
+  rei.gender = "Boy";
+  rei.bloodLine = "Pureblood";
+  rei.house = "Slytherin";
+  rei.expelled = false;
+  rei.inqSquad = false;
+  rei.prefect = false;
+  rei.image = "./imagesHogwarts/rei.png";
+  allStudents.unshift(rei);
+  setTimeout(() => {
+    displayHackScreen();
+  }, 200);
+  setTimeout(() => {
+    displayStudentList(allStudents);
+  }, 500);
+}
+
+/// function to indicate "hacking" has begun
+function displayHackScreen() {
+  document.querySelector(".close_hack").addEventListener("click", closeHackModal);
+  document.querySelector("#hack_screen").classList.remove("hide");
+  setTimeout(() => {
+    closeHackModal();
+  }, 2500);
+}
+function closeHackModal() {
+  console.log("closeHackModal called");
+  document.querySelector("#hack_screen").classList.add("hide");
+  document.querySelector(".close_hack").removeEventListener("click", closeHackModal);
 }
