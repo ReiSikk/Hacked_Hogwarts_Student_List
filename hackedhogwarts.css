@@ -60,16 +60,13 @@ html {
 }
 body {
   font-size: 0.9rem;
-  /* resulting css */
-  /* hack the css function */
-  /*   filter: contrast(170%) brightness(1000%);
-  background: linear-gradient(360deg, rgba(232, 128, 127, 1), rgba(230, 200, 79, 1)), url(/👆/that/noise.svg); */
-  background: linear-gradient(270deg, rgba(255, 166, 158, 1), rgba(167, 29, 49, 1));
+  /*  background: linear-gradient(270deg, rgba(255, 166, 158, 1), rgba(167, 29, 49, 1)); */
   font-family: var(--font-family_primary);
   overflow-x: hidden;
   width: 100%;
   color: #000;
   padding-bottom: 2em;
+  background-color: #d8896b;
 }
 h3 {
   font-family: var(--font-family-secondary);
@@ -91,8 +88,12 @@ p {
 header {
   display: flex;
   justify-content: center;
+  align-items: center;
   font-family: var(--font-family-primary);
   padding-bottom: var(--spacing-medium);
+  padding-top: var(--spacing-medium);
+  background-color: #f2a65a;
+  margin-bottom: 1em;
 }
 button:hover {
   color: #000;
@@ -101,6 +102,12 @@ button:hover {
   scale: 1.025;
   transition: 0.2s all ease-in-out;
   box-shadow: 1px 2px 6px black;
+}
+
+.nothing_to_show {
+  text-align: center;
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-xxlarge);
 }
 
 /* *****Typography****** */
@@ -297,7 +304,7 @@ section {
   padding-bottom: var(--spacing-small);
   border: solid 2.5px black;
   border-radius: 20px;
-  height: 100%;
+  height: max-content;
 }
 /* .card_wrapper:hover {
   scale: 1.02;
@@ -587,10 +594,14 @@ button.closebutton {
   font-family: "Sharpie", sans-serif;
   font-size: 10rem;
 }
+.text_shadow {
+  text-shadow: 2px 2px 6px #166d3b;
+}
 
 footer {
   padding-top: 2em;
   display: flex;
   justify-content: center;
   text-align: center;
+  font-family: var(--font-family-secondary);
 }

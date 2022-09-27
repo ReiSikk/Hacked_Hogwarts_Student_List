@@ -382,6 +382,10 @@ function isInInqSquad(singleStudent) {
 //* ******************  DISPLAY FUNCTIONS  ************************************* */
 
 function displayStudentList(students) {
+  if (students.length === 0) {
+    //document.querySelector(".nothing_to_show").classList.remove("dis_none");
+    alert("Nobody in this list yet!");
+  }
   document.querySelector(".student_grid").innerHTML = "";
   //number of students currently displayed
   document.querySelector("[data-filter-type='displayednow']").textContent = `${students.length} Students`;
@@ -480,10 +484,7 @@ function displayStudent(singleStudent) {
       if (singleStudent.randomBlood === 2) {
         singleStudent.bloodLine = "Muggle";
       }
-      //console.log(`This ${singleStudent}'s bloodIndex is ${singleStudent.randomBlood}`);
       console.log(singleStudent.bloodLine);
-
-      //assign each number an index from the randomblood array
     }
   }
   //HACKING ENDS
@@ -822,6 +823,9 @@ function hackTheSystem() {
   setTimeout(() => {
     displayStudentList(allStudents);
   }, 500);
+  setTimeout(() => {
+    hackVisuals();
+  }, 300);
 }
 
 /// function to indicate "hacking" has begun
@@ -836,4 +840,13 @@ function closeHackModal() {
   console.log("closeHackModal called");
   document.querySelector("#hack_screen").classList.add("hide");
   document.querySelector(".close_hack").removeEventListener("click", closeHackModal);
+}
+function hackVisuals() {
+  document.querySelector("body").style.background = "#2C3E50";
+  document.querySelector("header").style.color = "#166D3B";
+  document.querySelector("header").style.backgroundColor = "#000000";
+  document.querySelector("header").classList.add("text_shadow");
+  document.querySelector("body").style.color = "#fff";
+  document.querySelector(".stats_bar").style.color = "#000000";
+  document.querySelector(".side_bar").style.color = "#000000";
 }
