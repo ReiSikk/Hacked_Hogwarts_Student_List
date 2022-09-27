@@ -24,12 +24,21 @@
               <label for="search">Search students by name</label>
               <input class="search_bar" type="search" placeholder="Search student" id="search" data-search />
             </div>
-            <div class="sort_bar button_container" name="sort" id="sort">
+            <!--    <div class="sort_bar button_container" name="sort" id="sort">
               <span>Sort by:</span>
               <button data-action="sort" data-sort-direction="asc" data-sort="firstname-az">First Name A-Z</button>
               <button data-action="sort" data-sort-direction="asc" data-sort="lastname-az">Last Name A-Z</button>
               <button data-action="sort" data-sort-direction="asc" data-sort="house-az">House A-Z</button>
-            </div>
+            </div> -->
+            <select name="sort" id="sort">
+              <option value="default">Select Sorting</option>
+              <option value="firstname asc">Sort by First Name A-Z</option>
+              <option value="firstname desc">Sort by First Name Z-A</option>
+              <option value="lastname asc">Sort by Last Name A-Z</option>
+              <option value="lastname desc">Sort by Last Name Z-A</option>
+              <option value="house asc">Sort by House A-Z</option>
+              <option value="house desc">Sort by House Z-A</option>
+            </select>
           </div>
           <div>
             <div class="filter_house">
