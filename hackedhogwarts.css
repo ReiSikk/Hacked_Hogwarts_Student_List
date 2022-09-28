@@ -91,10 +91,10 @@ header {
   justify-content: center;
   align-items: center;
   font-family: var(--font-family-primary);
-  padding-bottom: var(--spacing-medium);
-  padding-top: var(--spacing-medium);
+  padding-bottom: var(--spacing-xsmall);
+  padding-top: var(--spacing-xsmall);
   background-color: #f2a65a;
-  margin-bottom: 1em;
+  margin-bottom: 0.75em;
 }
 button:hover {
   color: #000;
@@ -147,6 +147,47 @@ button:hover {
 }
 
 /* *********Left ASIDE Starts******** */
+#gender_flex {
+  display: flex;
+  width: 100%;
+}
+#gender_flex > * {
+  font-family: var(--font-family-primary);
+  font-weight: 600;
+  padding: 0.2rem;
+  margin: 0.25em;
+  width: 100%;
+}
+#house_flex {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+#house_flex > * {
+  font-family: var(--font-family-primary);
+  font-weight: 600;
+  padding: 0.2rem;
+  margin: 0.25em;
+}
+#status_flex {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+#status_flex > * {
+  font-family: var(--font-family-primary);
+  font-weight: 600;
+  padding: 0.2rem;
+  margin: 0.25em;
+}
+#blood_flex {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+#blood_flex > * {
+  font-family: var(--font-family-primary);
+  font-weight: 600;
+  padding: 0.2rem;
+  margin: 0.25em;
+}
 
 .side_bar {
   display: flex;
@@ -163,7 +204,8 @@ button:hover {
 .side_bar div:first-of-type {
   width: fit-content;
 }
-.filter_house {
+.filter_house,
+.filter_blood {
   padding-top: var(--spacing-xsmall);
 }
 .button_container {
@@ -189,25 +231,6 @@ button:hover {
   border: 2px solid black;
   background-color: #f2a65a;
 }
-
-/* .sort_bar button.sortby {
-  text-decoration: underline;
-}
-
-.sort_bar button.sortby[data-sort-direction="asc"]::after {
-  content: "⇓";
-}
-
-.sort_bar button.sortby[data-sort-direction="desc"]::after {
-  content: "⇑";
-}
-.sort_bar span {
-  font-family: var(--font-family-secondary);
-  font-size: var(--font-small);
-  letter-spacing: 0.1rem;
-  text-transform: uppercase;
-} */
-
 /* ********* Left ASIDE ends******** */
 
 /* ***Right ASIDE starts */
@@ -285,7 +308,7 @@ button:hover {
   position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
+  gap: 0.8rem;
 }
 main {
   position: relative;
@@ -297,6 +320,7 @@ main {
 @media only screen and (max-width: 560px) {
   main {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
   .side_bar {
     position: relative;
@@ -307,6 +331,20 @@ main {
     position: relative;
     width: 100%;
     border-radius: 20px;
+  }
+  .small_screen_wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .side_bar div:first-of-type {
+    width: 100%;
+  }
+  .search_wrapper {
+    text-align: left;
+  }
+  .search_bar,
+  #sort {
+    text-align: left;
   }
 }
 section {
@@ -483,6 +521,10 @@ button.closebutton {
     width: 100%;
     padding: 0.75rem;
     margin: 0.3rem;
+  }
+  .small_screen_wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
   }
 }
 .modal_prefect_wrapper {
