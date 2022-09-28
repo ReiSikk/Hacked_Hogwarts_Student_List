@@ -427,6 +427,7 @@ function displayStudent(singleStudent) {
   //clone.querySelector("#nick_name").textContent = `Nick name: ${singleStudent.nickname}`;
   clone.querySelector("#last_name").textContent = `Last name: ${singleStudent.lastname}`;
   clone.querySelector("#gender").textContent = `Gender: ${singleStudent.gender}`;
+  clone.querySelector("#blood_status").textContent = `Bloodline: ${singleStudent.bloodLine}`;
 
   if (singleStudent.prefect === true) {
     clone.querySelector("#prefect img").classList.remove("dis_none");
