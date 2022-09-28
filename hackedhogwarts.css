@@ -95,6 +95,7 @@ header {
   padding-top: var(--spacing-xsmall);
   background-color: #f2a65a;
   margin-bottom: 0.75em;
+  width: 100vw;
 }
 button:hover {
   color: #000;
