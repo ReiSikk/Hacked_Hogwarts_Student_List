@@ -67,11 +67,9 @@ function registerButtons() {
   document
     .querySelectorAll("[data-action='filter']")
     .forEach((button) => button.addEventListener("click", selectFilter));
-  /*  document.querySelectorAll("[data-action='sort']").forEach((button) => {
-    button.addEventListener("click", selectSort);
-  }); */
   document.querySelector("#sort").addEventListener("change", selectSort);
   document.querySelector(".search_bar").addEventListener("input", searchString);
+  document.querySelector(".disp_all_btn").addEventListener("click", buildList);
 }
 //fetch the data and pass data to prepareData function
 async function loadJSON() {
@@ -383,8 +381,10 @@ function isInInqSquad(singleStudent) {
 
 function displayStudentList(students) {
   if (students.length === 0) {
-    //document.querySelector(".nothing_to_show").classList.remove("dis_none");
-    alert("Nobody in this list yet!");
+    document.querySelector(".nothing_to_show").classList.remove("dis_none");
+    //alert("Nobody in this list yet!");
+  } else {
+    document.querySelector(".nothing_to_show").classList.add("dis_none");
   }
   document.querySelector(".student_grid").innerHTML = "";
   //number of students currently displayed
@@ -428,7 +428,6 @@ function displayStudent(singleStudent) {
   clone.querySelector("#last_name").textContent = `Last name: ${singleStudent.lastname}`;
   clone.querySelector("#gender").textContent = `Gender: ${singleStudent.gender}`;
 
-  //clone.querySelector("#prefect").textContent = `Prefect: ${singleStudent.prefect}`;
   if (singleStudent.prefect === true) {
     clone.querySelector("#prefect img").classList.remove("dis_none");
   }
@@ -514,6 +513,10 @@ function openModal(singleStudent) {
   document.querySelector(".image").alt = `${singleStudent.firstname} ${singleStudent.lastname}`;
   document.querySelector(".modal_house_crest").src = `./imagesHogwarts/${singleStudent.house.toLowerCase()}-logo.png`;
   document.querySelector(".modal_house_crest").alt = `${singleStudent.house}`;
+  //If student is me
+  if (singleStudent.firstname === "Rei") {
+    console.log("Rei's wrapper selected");
+  }
 
   if (singleStudent.prefect === true) {
     document.querySelector("#modal_prefect[data-prefect='false']").dataset.prefect = true;
@@ -617,7 +620,7 @@ function openModal(singleStudent) {
       removeStudent(singleStudent);
       setTimeout(() => {
         buildList();
-      }, 1500);
+      }, 1000);
     }
   }
   function removeStudent(singleStudent) {
@@ -762,8 +765,6 @@ function expellAnimation() {
   console.log("expellAnimation called");
   document.querySelector(".expellmodal").classList.remove("hide");
   document.querySelector(".expell_message").classList.remove("hide");
-  const expellBtn = document.querySelector("#expell");
-  const slideout = document.querySelector(".expelled");
 }
 
 //*********** ******** HACK THE SYSTEM ******* *********** */

@@ -180,8 +180,16 @@ button:hover {
   padding: 0.2rem;
   margin: 0.25em;
 }
+.disp_all_btn {
+  font-family: var(--font-family-primary);
+  font-weight: 600;
+  padding: 0.25em;
+  text-align: center;
+  border: 2px solid black;
+  background-color: #f2a65a;
+}
 
-.sort_bar button.sortby {
+/* .sort_bar button.sortby {
   text-decoration: underline;
 }
 
@@ -197,7 +205,7 @@ button:hover {
   font-size: var(--font-small);
   letter-spacing: 0.1rem;
   text-transform: uppercase;
-}
+} */
 
 /* ********* Left ASIDE ends******** */
 
@@ -241,10 +249,22 @@ button:hover {
   flex-direction: column;
   gap: var(--spacing-small);
 }
-.search_bar {
+.search_bar,
+#sort {
   padding: 0.25em;
   text-align: center;
+  border: 2px solid black;
+  background-color: rgba(245, 247, 250, 1);
 }
+.search_bar:focus {
+  border: 1.5px solid lightblue;
+  border-radius: 4px;
+}
+#sort:focus {
+  border: 1.5px solid lightblue;
+  border-radius: 4px;
+}
+
 .search_wrapper label {
   font-family: var(--font-family-secondary);
   font-weight: 600;
@@ -304,7 +324,7 @@ section {
   padding-bottom: var(--spacing-small);
   border: solid 2.5px black;
   border-radius: 20px;
-  height: max-content;
+  height: 100%;
 }
 /* .card_wrapper:hover {
   scale: 1.02;
@@ -374,7 +394,7 @@ section {
 /* ***STUDENT CARD ENDS */
 
 /* ***POP UP MODAL BEGINS */
-[data-prefect="true"] {
+/* [data-prefect="true"] {
   position: relative;
 }
 [data-prefect="true"]::after {
@@ -389,7 +409,7 @@ section {
   background-size: contain;
   background-repeat: no-repeat;
   z-index: 0;
-}
+} */
 .inquisitor_image {
   width: 3.5rem;
 }

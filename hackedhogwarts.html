@@ -22,7 +22,7 @@
           <div class="searchsort_container">
             <div class="search_wrapper">
               <label for="search">Search students by name</label>
-              <input class="search_bar" type="search" placeholder="Search student" id="search" data-search />
+              <input class="search_bar" type="search" placeholder="Search student..." id="search" data-search />
             </div>
             <select name="sort" id="sort">
               <option value="default">Select Sorting</option>
@@ -33,6 +33,9 @@
               <option value="house asc">Sort by House A-Z</option>
               <option value="house desc">Sort by House Z-A</option>
             </select>
+            <button class="fs_small disp_all_btn" data-action="filter" data-filter="all" data-filter-type="all">
+              Display all
+            </button>
           </div>
           <div>
             <div class="filter_house">
