@@ -333,7 +333,7 @@ function buildList() {
   const currentList = filterList(allStudents);
   /* console.log(currentList); */
   const sortedList = sortList(currentList);
-  console.log(sortedList);
+  //console.log(sortedList);
   displayStudentList(sortedList);
 }
 
@@ -483,7 +483,6 @@ function displayStudent(singleStudent) {
       if (singleStudent.randomBlood === 2) {
         singleStudent.bloodLine = "Muggle";
       }
-      console.log(singleStudent.bloodLine);
     }
   }
   //HACKING ENDS
@@ -564,6 +563,9 @@ function openModal(singleStudent) {
     if (settings.choice === "expel_student") {
       if (singleStudent.firstname === "Rei") {
         alert("Can't expell me hehe");
+      } else if (singleStudent.expelled === true) {
+        document.querySelector("#expell").removeEventListener("click", expellStudent);
+        alert("Student is already expelled!");
       } else {
         expellStudent(singleStudent);
         expellAnimation();
@@ -626,7 +628,7 @@ function openModal(singleStudent) {
   function removeStudent(singleStudent) {
     console.log("Singlestudent in removeStudent function: ", singleStudent);
     console.log("removeStudent");
-    const expelled = expelledStudents.push(singleStudent);
+    expelledStudents.push(singleStudent);
     allStudents = allStudents.filter(isNotExpelled);
   }
 
