@@ -269,7 +269,6 @@ button:hover {
 .search_wrapper label {
   font-family: var(--font-family-secondary);
   font-weight: 600;
-  font-size: var(--font-xsmall);
   letter-spacing: 0.1rem;
   text-transform: uppercase;
 }
