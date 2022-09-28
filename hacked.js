@@ -61,6 +61,33 @@ async function start() {
   loadJSON();
   registerButtons();
   document.querySelector("#sort").value = "default";
+  document.addEventListener("keyup", (event) => {
+    const key = event.key.toLowerCase();
+    //console.log(key);
+    if (key === "h") {
+      settings.hackFlag1 = true;
+    }
+    if (key === "a") {
+      settings.hackFlag2 = true;
+    }
+    if (key === "c") {
+      settings.hackFlag3 = true;
+    }
+    if (key === "k") {
+      settings.hackFlag4 = true;
+    }
+    //if all the falgs are true and system wasn't hacked call hack the system
+    if (
+      settings.hackFlag1 === true &&
+      settings.hackFlag2 === true &&
+      settings.hackFlag3 === true &&
+      settings.hackFlag4 === true
+    ) {
+      if (settings.wasHacked === false) {
+        hackTheSystem();
+      }
+    }
+  });
 }
 
 function registerButtons() {
@@ -724,33 +751,6 @@ function expellAnimation() {
 }
 
 //*********** ******** HACK THE SYSTEM ******* *********** */
-document.addEventListener("keyup", (event) => {
-  const key = event.key.toLowerCase();
-  //console.log(key);
-  if (key === "h") {
-    settings.hackFlag1 = true;
-  }
-  if (key === "a") {
-    settings.hackFlag2 = true;
-  }
-  if (key === "c") {
-    settings.hackFlag3 = true;
-  }
-  if (key === "k") {
-    settings.hackFlag4 = true;
-  }
-  //if all the falgs are true and system wasn't hacked call hack the system
-  if (
-    settings.hackFlag1 === true &&
-    settings.hackFlag2 === true &&
-    settings.hackFlag3 === true &&
-    settings.hackFlag4 === true
-  ) {
-    if (settings.wasHacked === false) {
-      hackTheSystem();
-    }
-  }
-});
 
 // add myself to the list
 function hackTheSystem() {
