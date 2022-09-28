@@ -38,9 +38,10 @@
             </button>
           </div>
           <div>
+            <div class="small_screen_wrapper">
             <div class="filter_house">
               <h3>Filter by house</h3>
-              <div class="button_container">
+              <div id="house_flex">
                 <button class="fs_medium" data-action="filter" data-filter="slytherin" data-filter-type="house">
                   Slytherin
                 </button>
@@ -57,7 +58,7 @@
             </div>
             <div class="filter_blood">
               <h3>Filter by blood</h3>
-              <div class="button_container">
+              <div id="blood_flex">
                 <button class="fs_medium" data-action="filter" data-filter="pureblood" data-filter-type="blood">
                   Pure Blood
                 </button>
@@ -69,9 +70,10 @@
                 </button>
               </div>
             </div>
+            </div>
             <div class="filter_gender">
               <h3>Filter by gender</h3>
-              <div class="button_container">
+              <div id="gender_flex">
                 <button class="fs_medium" data-action="filter" data-filter="boys" data-filter-type="gender">
                   Boys
                 </button>
@@ -82,20 +84,19 @@
             </div>
             <div class="filter_status">
               <h3>Filter by status</h3>
-              <div class="button_container">
-                <button class="fs_medium" data-action="filter" data-filter="expelled" data-filter-type="status">
-                  Expelled
-                </button>
-                <button class="fs_medium" data-action="filter" data-filter="notexpelled" data-filter-type="status">
-                  Non expelled
-                </button>
-                <button class="fs_medium" data-action="filter" data-filter="prefect" data-filter-type="status">
-                  Prefects
-                </button>
-                <button class="fs_medium" data-action="filter" data-filter="inqsquad" data-filter-type="status">
-                  Inquisitorial Squad
-                </button>
-              </div>
+              <div id="status_flex">
+              <button class="fs_medium" data-action="filter" data-filter="expelled" data-filter-type="status">
+                Expelled
+              </button>
+              <button class="fs_medium" data-action="filter" data-filter="notexpelled" data-filter-type="status">
+                Non expelled
+              </button>
+              <button class="fs_medium" data-action="filter" data-filter="prefect" data-filter-type="status">
+                Prefects
+              </button>
+              <button class="fs_medium" data-action="filter" data-filter="inqsquad" data-filter-type="status">
+                Inquisitorial Squad
+              </button>
             </div>
           </div>
         </aside>
