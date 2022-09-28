@@ -75,10 +75,8 @@ function registerButtons() {
 async function loadJSON() {
   const response = await fetch(url);
   const jsonData = await response.json();
-  //console.log("jsonData loaded");
   const response2 = await fetch(bloodUrl);
   const bloodData = await response2.json();
-  //console.log("bloodData loaded");
 
   settings.blood = bloodData;
   // when loaded, prepare data objects
@@ -211,7 +209,6 @@ function findBloodType(lastname) {
 
 function selectFilter(event) {
   const filter = event.target.dataset.filter;
-  //console.log(`User selected filter: ${filter}`);
   setFilter(filter);
 }
 function setFilter(filter) {
@@ -263,29 +260,8 @@ function filterList(filteredList) {
 }
 
 function selectSort(event) {
-  /*   console.log("selectSort called");
-  const sortBy = event.target.dataset.sort;
-  console.log("sortBy: ", sortBy);
-  const sortDir = event.target.dataset.sortDirection;
-  console.log("sortDir: ", sortDir); */
-
   //pass sort property and direction in one value and split it
   let options = event.target.value.split(" ");
-
-  //find "old" sortBy element and remove "sortBy"
-  /*   console.log(`settings.sortBy is: ${settings.sortBy}`);
-  const oldElement = document.querySelector(`[data-sort="${settings.sortBy}"]`);
-  console.log(oldElement);
-  oldElement.classList.remove("sortby"); */
-
-  //indicate active sort direction
-  //event.target.classList.add("sortby");
-  // toggle the direction
-  /*   if (sortDir === "asc") {
-    event.target.dataset.sortDirection = "desc";
-  } else {
-    event.target.dataset.sortDirection = "asc";
-  } */
   setSort(options[0], options[1]);
 }
 
@@ -302,7 +278,6 @@ function setSort(sortBy, sortDir) {
     if (sortDir === "desc") {
       settings.direction = -1;
     }
-    //console.log(`Sorting: ${sortBy}, ${sortDir},${direction}`);
   }
   //updating list with the sorting
   buildList();
@@ -331,9 +306,7 @@ function sortList(sortedList) {
 function buildList() {
   console.log("buildList called");
   const currentList = filterList(allStudents);
-  /* console.log(currentList); */
   const sortedList = sortList(currentList);
-  //console.log(sortedList);
   displayStudentList(sortedList);
 }
 
@@ -491,7 +464,6 @@ function displayStudent(singleStudent) {
   //DETAILS MODAL
   function clickModal() {
     openModal(singleStudent);
-    //console.log(singleStudent);
   }
 
   //grab the parent
@@ -500,7 +472,6 @@ function displayStudent(singleStudent) {
   parent.appendChild(clone);
 }
 function openModal(singleStudent) {
-  console.log("openModal");
   document.querySelector(".full_name").textContent = `${singleStudent.fullname}`;
   document.querySelector(".first_name").textContent = `First name: ${singleStudent.firstname}`;
   document.querySelector(".middle_name").textContent = ` Middle name: ${singleStudent.middlename}`;
@@ -513,13 +484,14 @@ function openModal(singleStudent) {
   document.querySelector(".image").alt = `${singleStudent.firstname} ${singleStudent.lastname}`;
   document.querySelector(".modal_house_crest").src = `./imagesHogwarts/${singleStudent.house.toLowerCase()}-logo.png`;
   document.querySelector(".modal_house_crest").alt = `${singleStudent.house}`;
-  //If student is me
-  if (singleStudent.firstname === "Rei") {
-    console.log("Rei's wrapper selected");
-  }
 
+  //if prefect true display badge
   if (singleStudent.prefect === true) {
-    document.querySelector("#modal_prefect[data-prefect='false']").dataset.prefect = true;
+    document.querySelector("#prefect_modal img").classList.remove("dis_none");
+  }
+  //if inqSquad true display badge
+  if (singleStudent.inqSquad === true) {
+    document.querySelector("#inquisitor_modal img").classList.remove("dis_none");
   }
 
   //house colors and styling
@@ -558,7 +530,6 @@ function openModal(singleStudent) {
     setChoice(selectedChoice);
   }
   function setChoice(choice) {
-    console.log("setChoice");
     //store the choice
     settings.choice = choice;
     if (settings.choice === "expel_student") {
@@ -627,25 +598,17 @@ function openModal(singleStudent) {
     }
   }
   function removeStudent(singleStudent) {
-    console.log("Singlestudent in removeStudent function: ", singleStudent);
-    console.log("removeStudent");
     expelledStudents.push(singleStudent);
     allStudents = allStudents.filter(isNotExpelled);
   }
 
   //adding to the inquisitorial squad
   function makeInquisitor(singleStudent) {
-    if (singleStudent.inqSquad === false) {
-      if (
-        singleStudent.house === "Slytherin" &&
-        singleStudent.bloodLine === "Pureblood" &&
-        singleStudent.expelled === false
-      ) {
+    if (singleStudent.inqSquad === false && singleStudent.expelled === false) {
+      if (singleStudent.house === "Slytherin" || singleStudent.bloodLine === "Pureblood") {
         if (settings.wasHacked === false) {
           singleStudent.inqSquad = true;
           inquisitorArray.push(singleStudent);
-          console.log("This student is now an inqusitor: ", singleStudent.inqSquad);
-          console.log(inquisitorArray);
         }
         if (settings.wasHacked === true) {
           singleStudent.inqSquad = true;
@@ -662,18 +625,15 @@ function openModal(singleStudent) {
       const inquisitorIndex = inquisitorArray.indexOf(singleStudent);
       singleStudent.inqSquad = false;
       inquisitorArray.splice(inquisitorIndex, 1);
-      //console.log(inquisitorArray);
     }
     function hackedRemoveInquisitor() {
       let studentIndexWhileHacked = inquisitorArray.indexOf(singleStudent);
-      //console.log(studentIndexWhileHacked);
       singleStudent.inqSquad = false;
       console.log(singleStudent.inqSquad);
       inquisitorArray.splice(studentIndexWhileHacked, 1);
       buildList();
       alert("Hehe this student has been removed from the Inquisitors");
     }
-    //buildList();
   }
 
   function closeModal() {
@@ -734,29 +694,22 @@ function tryToMakePrefect(prefectCandidate) {
       makePrefect(prefectCandidate);
       buildList();
       closeDialog();
-      //console.log("click B is not a prefect anymore");
-      //console.log("prefects after clickremoveB are", prefects);
     }
     function removePrefect(studentPrefect) {
       console.log("removePrefect called", studentPrefect);
       studentPrefect.prefect = false;
       const removedPrefect = prefectArray.indexOf(studentPrefect);
       prefectArray.splice(removedPrefect, 1);
-      console.log(removedPrefect);
-
-      //console.log(prefectArray, "after removePrefect is called");
+      //console.log(removedPrefect);
     }
   }
   function makePrefect(singleStudent) {
-    //console.log("makePrefect called");
-    //console.log(singleStudent);
     if (singleStudent.expelled === false) {
       singleStudent.prefect = true;
       prefectArray.push(singleStudent);
     } else {
       alert("Not possible to set expelled student as prefect!");
     }
-    //console.log(`This ${singleStudent.fullname} is now a prefect: ${singleStudent.prefect}`);
   }
 }
 function clickModal(singleStudent) {
@@ -786,8 +739,7 @@ document.addEventListener("keyup", (event) => {
   if (key === "k") {
     settings.hackFlag4 = true;
   }
-
-  // do something
+  //if all the falgs are true and system wasn't hacked call hack the system
   if (
     settings.hackFlag1 === true &&
     settings.hackFlag2 === true &&
