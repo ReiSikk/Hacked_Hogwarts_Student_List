@@ -1,7 +1,0 @@
-1. - register button clicks (add eventlisteners forEach)
--- click calls function to selectFilter
---- selectfilter function takes event as param and declares variable for click target. 
----- selectfilter calls setFilter sending filter as param
-2. - setFilter function takes filter as param
- ---- sets global settings object filterBy to filter
- -----calls buildList() function 
